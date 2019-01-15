@@ -1,0 +1,44 @@
+
+== Creating agents
+
+Agents are created using the following functions:
+
+[[create_system]]
+* _pid_ = *create_system*([_name_], _script_, _..._) +
+[small]#Creates the <<system_agent, system agent>>, starts the SDL system,
+and returns the system agent's pid. +
+The parameters have the same meaning as for the <<create, create>>(&nbsp;) function. +
+This function is available only to the application and can be used only when the system is not running.#
+
+[[create]]
+* _pid_ = *create*([_name_], _script_, _..._) +
+[small]#Creates an agent other than the system agent. +
+_name_: the agent's <<agent_name, name>> (a string not containing dots). If _name=nil_, the default
+name _"agent<pid>"_ is used (e.g. _"agent1"_, _agent2"_, etc.) +
+_script_: the <<_agent_scripts, agent-script>> defining the agent's behaviour (see below
+for how the script is searched). +
+_..._: optional arguments to be passed to the <<start_transition, start transition>>. +
+This function is available only to agents and should be used within transitions.#
+
+To *find agent-scripts*, the functions above use the same mechanism that Lua uses to find
+modules and packages.
+
+More precisely, the _script_ argument (a string) is resolved by invoking the standard Lua
+http://www.lua.org/manual/5.3/manual.html#pdf-package.searchpath[package.searchpath](&nbsp;)
+function, passing it the templates contained in the variable *moonagents.path* as the
+argument for the _path_ parameter.
+
+By default, _moonagents.path_=_"?;?.lua"_ so that if, for example, an agent is created like
+in the example below then MoonAgents searches for a file named _"mydir/myagentscript"_ or
+_mydir/myagentscript.lua"_ (in this order).
+
+[source,lua,indent=1]
+----
+pid = moonagents.create("myagentname","mydir.myagentscript")
+----
+
+The default _moonagents.path_ can be overridden by setting the *MOONAGENTS_PATH* environment
+variable with the desired path templates, in the same way one sets the standard *LUA_PATH*
+variable to override its default http://www.lua.org/manual/5.3/manual.html#pdf-package.path[package.path]
+(alternatively, one can directly change it from the application).
+

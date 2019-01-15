@@ -1,0 +1,2123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="author" content="Stefano Trettel">
+<title>MoonAgents Reference Manual</title>
+<style>
+/*! normalize.css v2.1.2 | MIT License | git.io/normalize */
+/* ========================================================================== HTML5 display definitions ========================================================================== */
+/** Correct `block` display not defined in IE 8/9. */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
+
+/** Correct `inline-block` display not defined in IE 8/9. */
+audio, canvas, video { display: inline-block; }
+
+/** Prevent modern browsers from displaying `audio` without controls. Remove excess height in iOS 5 devices. */
+audio:not([controls]) { display: none; height: 0; }
+
+/** Address `[hidden]` styling not present in IE 8/9. Hide the `template` element in IE, Safari, and Firefox < 22. */
+[hidden], template { display: none; }
+
+script { display: none !important; }
+
+/* ========================================================================== Base ========================================================================== */
+/** 1. Set default font family to sans-serif. 2. Prevent iOS text size adjust after orientation change, without disabling user zoom. */
+html { font-family: sans-serif; /* 1 */ -ms-text-size-adjust: 100%; /* 2 */ -webkit-text-size-adjust: 100%; /* 2 */ }
+
+/** Remove default margin. */
+body { margin: 0; }
+
+/* ========================================================================== Links ========================================================================== */
+/** Remove the gray background color from active links in IE 10. */
+a { background: transparent; }
+
+/** Address `outline` inconsistency between Chrome and other browsers. */
+a:focus { outline: thin dotted; }
+
+/** Improve readability when focused and also mouse hovered in all browsers. */
+a:active, a:hover { outline: 0; }
+
+/* ========================================================================== Typography ========================================================================== */
+/** Address variable `h1` font-size and margin within `section` and `article` contexts in Firefox 4+, Safari 5, and Chrome. */
+h1 { font-size: 2em; margin: 0.67em 0; }
+
+/** Address styling not present in IE 8/9, Safari 5, and Chrome. */
+abbr[title] { border-bottom: 1px dotted; }
+
+/** Address style set to `bolder` in Firefox 4+, Safari 5, and Chrome. */
+b, strong { font-weight: bold; }
+
+/** Address styling not present in Safari 5 and Chrome. */
+dfn { font-style: italic; }
+
+/** Address differences between Firefox and other browsers. */
+hr { -moz-box-sizing: content-box; box-sizing: content-box; height: 0; }
+
+/** Address styling not present in IE 8/9. */
+mark { background: #ff0; color: #000; }
+
+/** Correct font family set oddly in Safari 5 and Chrome. */
+code, kbd, pre, samp { font-family: monospace, serif; font-size: 1em; }
+
+/** Improve readability of pre-formatted text in all browsers. */
+pre { white-space: pre-wrap; }
+
+/** Set consistent quote types. */
+q { quotes: "\201C" "\201D" "\2018" "\2019"; }
+
+/** Address inconsistent and variable font size in all browsers. */
+small { font-size: 80%; }
+
+/** Prevent `sub` and `sup` affecting `line-height` in all browsers. */
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+
+sup { top: -0.5em; }
+
+sub { bottom: -0.25em; }
+
+/* ========================================================================== Embedded content ========================================================================== */
+/** Remove border when inside `a` element in IE 8/9. */
+img { border: 0; }
+
+/** Correct overflow displayed oddly in IE 9. */
+svg:not(:root) { overflow: hidden; }
+
+/* ========================================================================== Figures ========================================================================== */
+/** Address margin not present in IE 8/9 and Safari 5. */
+figure { margin: 0; }
+
+/* ========================================================================== Forms ========================================================================== */
+/** Define consistent border, margin, and padding. */
+fieldset { border: 1px solid #c0c0c0; margin: 0 2px; padding: 0.35em 0.625em 0.75em; }
+
+/** 1. Correct `color` not being inherited in IE 8/9. 2. Remove padding so people aren't caught out if they zero out fieldsets. */
+legend { border: 0; /* 1 */ padding: 0; /* 2 */ }
+
+/** 1. Correct font family not being inherited in all browsers. 2. Correct font size not being inherited in all browsers. 3. Address margins set differently in Firefox 4+, Safari 5, and Chrome. */
+button, input, select, textarea { font-family: inherit; /* 1 */ font-size: 100%; /* 2 */ margin: 0; /* 3 */ }
+
+/** Address Firefox 4+ setting `line-height` on `input` using `!important` in the UA stylesheet. */
+button, input { line-height: normal; }
+
+/** Address inconsistent `text-transform` inheritance for `button` and `select`. All other form control elements do not inherit `text-transform` values. Correct `button` style inheritance in Chrome, Safari 5+, and IE 8+. Correct `select` style inheritance in Firefox 4+ and Opera. */
+button, select { text-transform: none; }
+
+/** 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio` and `video` controls. 2. Correct inability to style clickable `input` types in iOS. 3. Improve usability and consistency of cursor style between image-type `input` and others. */
+button, html input[type="button"], input[type="reset"], input[type="submit"] { -webkit-appearance: button; /* 2 */ cursor: pointer; /* 3 */ }
+
+/** Re-set default cursor for disabled elements. */
+button[disabled], html input[disabled] { cursor: default; }
+
+/** 1. Address box sizing set to `content-box` in IE 8/9. 2. Remove excess padding in IE 8/9. */
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; /* 1 */ padding: 0; /* 2 */ }
+
+/** 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome. 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome (include `-moz` to future-proof). */
+input[type="search"] { -webkit-appearance: textfield; /* 1 */ -moz-box-sizing: content-box; -webkit-box-sizing: content-box; /* 2 */ box-sizing: content-box; }
+
+/** Remove inner padding and search cancel button in Safari 5 and Chrome on OS X. */
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+
+/** Remove inner padding and border in Firefox 4+. */
+button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+
+/** 1. Remove default vertical scrollbar in IE 8/9. 2. Improve readability and alignment in all browsers. */
+textarea { overflow: auto; /* 1 */ vertical-align: top; /* 2 */ }
+
+/* ========================================================================== Tables ========================================================================== */
+/** Remove most spacing between table cells. */
+table { border-collapse: collapse; border-spacing: 0; }
+
+meta.foundation-mq-small { font-family: "only screen and (min-width: 768px)"; width: 768px; }
+
+meta.foundation-mq-medium { font-family: "only screen and (min-width:1280px)"; width: 1280px; }
+
+meta.foundation-mq-large { font-family: "only screen and (min-width:1440px)"; width: 1440px; }
+
+*, *:before, *:after { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+html, body { font-size: 100%; }
+
+body { background: white; color: #222222; padding: 0; margin: 0; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-weight: normal; font-style: normal; line-height: 1; position: relative; cursor: auto; }
+
+a:hover { cursor: pointer; }
+
+img, object, embed { max-width: 100%; height: auto; }
+
+object, embed { height: 100%; }
+
+img { -ms-interpolation-mode: bicubic; }
+
+#map_canvas img, #map_canvas embed, #map_canvas object, .map_canvas img, .map_canvas embed, .map_canvas object { max-width: none !important; }
+
+.left { float: left !important; }
+
+.right { float: right !important; }
+
+.text-left { text-align: left !important; }
+
+.text-right { text-align: right !important; }
+
+.text-center { text-align: center !important; }
+
+.text-justify { text-align: justify !important; }
+
+.hide { display: none; }
+
+.antialiased, body { -webkit-font-smoothing: antialiased; }
+
+img { display: inline-block; vertical-align: middle; }
+
+textarea { height: auto; min-height: 50px; }
+
+select { width: 100%; }
+
+p.lead, .paragraph.lead > p, #preamble > .sectionbody > .paragraph:first-of-type p { font-size: 1.21875em; line-height: 1.6; }
+
+.subheader, .admonitionblock td.content > .title, .audioblock > .title, .exampleblock > .title, .imageblock > .title, .listingblock > .title, .literalblock > .title, .stemblock > .title, .openblock > .title, .paragraph > .title, .quoteblock > .title, table.tableblock > .title, .verseblock > .title, .videoblock > .title, .dlist > .title, .olist > .title, .ulist > .title, .qlist > .title, .hdlist > .title { line-height: 1.4; color: #003b6b; font-weight: 300; margin-top: 0.2em; margin-bottom: 0.5em; }
+
+/* Typography resets */
+div, dl, dt, dd, ul, ol, li, h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6, pre, form, p, blockquote, th, td { margin: 0; padding: 0; direction: ltr; }
+
+/* Default Link Styles */
+a { color: #00579e; text-decoration: none; line-height: inherit; }
+a:hover, a:focus { color: #333333; }
+a img { border: none; }
+
+/* Default paragraph styles */
+p { font-family: Arial, sans-serif; font-weight: normal; font-size: 1em; line-height: 1.6; margin-bottom: 0.75em; text-rendering: optimizeLegibility; }
+p aside { font-size: 0.875em; line-height: 1.35; font-style: italic; }
+
+/* Default header styles */
+h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 { font-family: Arial, sans-serif; font-weight: normal; font-style: normal; color: #7b2d00; text-rendering: optimizeLegibility; margin-top: 0.5em; margin-bottom: 0.5em; line-height: 1.2125em; }
+h1 small, h2 small, h3 small, #toctitle small, .sidebarblock > .content > .title small, h4 small, h5 small, h6 small { font-size: 60%; color: #ff6b15; line-height: 0; }
+
+h1 { font-size: 2.125em; }
+
+h2 { font-size: 1.6875em; }
+
+h3, #toctitle, .sidebarblock > .content > .title { font-size: 1.375em; }
+
+h4 { font-size: 1.125em; }
+
+h5 { font-size: 1.125em; }
+
+h6 { font-size: 1em; }
+
+hr { border: solid #dddddd; border-width: 1px 0 0; clear: both; margin: 1.25em 0 1.1875em; height: 0; }
+
+/* Helpful Typography Defaults */
+em, i { font-style: italic; line-height: inherit; }
+
+strong, b { font-weight: bold; line-height: inherit; }
+
+small { font-size: 60%; line-height: inherit; }
+
+code { font-family: Consolas, "Liberation Mono", Courier, monospace; font-weight: bold; color: #003426; }
+
+/* Lists */
+ul, ol, dl { font-size: 1em; line-height: 1.6; margin-bottom: 0.75em; list-style-position: outside; font-family: Arial, sans-serif; }
+
+ul, ol { margin-left: 1.5em; }
+ul.no-bullet, ol.no-bullet { margin-left: 1.5em; }
+
+/* Unordered Lists */
+ul li ul, ul li ol { margin-left: 1.25em; margin-bottom: 0; font-size: 1em; /* Override nested font-size change */ }
+ul.square li ul, ul.circle li ul, ul.disc li ul { list-style: inherit; }
+ul.square { list-style-type: square; }
+ul.circle { list-style-type: circle; }
+ul.disc { list-style-type: disc; }
+ul.no-bullet { list-style: none; }
+
+/* Ordered Lists */
+ol li ul, ol li ol { margin-left: 1.25em; margin-bottom: 0; }
+
+/* Definition Lists */
+dl dt { margin-bottom: 0.3em; font-weight: bold; }
+dl dd { margin-bottom: 0.75em; }
+
+/* Abbreviations */
+abbr, acronym { text-transform: uppercase; font-size: 90%; color: black; border-bottom: 1px dotted #dddddd; cursor: help; }
+
+abbr { text-transform: none; }
+
+/* Blockquotes */
+blockquote { margin: 0 0 0.75em; padding: 0.5625em 1.25em 0 1.1875em; border-left: 1px solid #dddddd; }
+blockquote cite { display: block; font-size: 0.8125em; color: #e15200; }
+blockquote cite:before { content: "\2014 \0020"; }
+blockquote cite a, blockquote cite a:visited { color: #e15200; }
+
+blockquote, blockquote p { line-height: 1.6; color: #333333; }
+
+/* Microformats */
+.vcard { display: inline-block; margin: 0 0 1.25em 0; border: 1px solid #dddddd; padding: 0.625em 0.75em; }
+.vcard li { margin: 0; display: block; }
+.vcard .fn { font-weight: bold; font-size: 0.9375em; }
+
+.vevent .summary { font-weight: bold; }
+.vevent abbr { cursor: auto; text-decoration: none; font-weight: bold; border: none; padding: 0 0.0625em; }
+
+@media only screen and (min-width: 768px) { h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 { line-height: 1.4; }
+  h1 { font-size: 2.75em; }
+  h2 { font-size: 2.3125em; }
+  h3, #toctitle, .sidebarblock > .content > .title { font-size: 1.6875em; }
+  h4 { font-size: 1.4375em; } }
+/* Tables */
+table { background: white; margin-bottom: 1.25em; border: solid 1px #d8d8ce; }
+table thead, table tfoot { background: -webkit-linear-gradient(top, #add386, #90b66a); font-weight: bold; }
+table thead tr th, table thead tr td, table tfoot tr th, table tfoot tr td { padding: 0.5em 0.625em 0.625em; font-size: inherit; color: white; text-align: left; }
+table tr th, table tr td { padding: 0.5625em 0.625em; font-size: inherit; color: #6d6e71; }
+table tr.even, table tr.alt, table tr:nth-of-type(even) { background: #edf2f2; }
+table thead tr th, table tfoot tr th, table tbody tr td, table tr td, table tfoot tr td { display: table-cell; line-height: 1.4; }
+
+h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 { line-height: 1.4; }
+
+a:hover, a:focus { text-decoration: underline; }
+
+.clearfix:before, .clearfix:after, .float-group:before, .float-group:after { content: " "; display: table; }
+.clearfix:after, .float-group:after { clear: both; }
+
+*:not(pre) > code { font-size: inherit; font-style: normal !important; letter-spacing: 0; padding: 3px 2px 1px 2px; background-color: #eeeeee; border: 1px solid #dddddd; -webkit-border-radius: 0; border-radius: 0; line-height: inherit; }
+
+pre, pre > code { line-height: 1.6; color: black; font-family: Consolas, "Liberation Mono", Courier, monospace; font-weight: normal; }
+
+.keyseq { color: #333333; }
+
+kbd { display: inline-block; color: black; font-size: 0.75em; line-height: 1.4; background-color: #f7f7f7; border: 1px solid #ccc; -webkit-border-radius: 3px; border-radius: 3px; -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 0.1em white inset; box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 0.1em white inset; margin: -0.15em 0.15em 0 0.15em; padding: 0.2em 0.6em 0.2em 0.5em; vertical-align: middle; white-space: nowrap; }
+
+.keyseq kbd:first-child { margin-left: 0; }
+
+.keyseq kbd:last-child { margin-right: 0; }
+
+.menuseq, .menu { color: black; }
+
+b.button:before, b.button:after { position: relative; top: -1px; font-weight: normal; }
+
+b.button:before { content: "["; padding: 0 3px 0 2px; }
+
+b.button:after { content: "]"; padding: 0 2px 0 3px; }
+
+#header, #content, #footnotes, #footer { width: 100%; margin-left: auto; margin-right: auto; margin-top: 0; margin-bottom: 0; max-width: 62.5em; *zoom: 1; position: relative; padding-left: 1.5em; padding-right: 1.5em; }
+#header:before, #header:after, #content:before, #content:after, #footnotes:before, #footnotes:after, #footer:before, #footer:after { content: " "; display: table; }
+#header:after, #content:after, #footnotes:after, #footer:after { clear: both; }
+
+#content { margin-top: 1.25em; }
+
+#content:before { content: none; }
+
+#header > h1:first-child { color: #7b2d00; margin-top: 2.25rem; margin-bottom: 0; }
+#header > h1:first-child + #toc { margin-top: 8px; border-top: 1px solid #dddddd; }
+#header > h1:only-child, body.toc2 #header > h1:nth-last-child(2) { border-bottom: 1px solid #dddddd; padding-bottom: 8px; }
+#header .details { border-bottom: 1px solid #dddddd; line-height: 1.45; padding-top: 0.25em; padding-bottom: 0.25em; padding-left: 0.25em; color: #e15200; display: -ms-flexbox; display: -webkit-flex; display: flex; -ms-flex-flow: row wrap; -webkit-flex-flow: row wrap; flex-flow: row wrap; }
+#header .details span:first-child { margin-left: -0.125em; }
+#header .details span.email a { color: #333333; }
+#header .details br { display: none; }
+#header .details br + span:before { content: "\00a0\2013\00a0"; }
+#header .details br + span.author:before { content: "\00a0\22c5\00a0"; color: #333333; }
+#header .details br + span#revremark:before { content: "\00a0|\00a0"; }
+#header #revnumber { text-transform: capitalize; }
+#header #revnumber:after { content: "\00a0"; }
+
+#content > h1:first-child:not([class]) { color: #7b2d00; border-bottom: 1px solid #dddddd; padding-bottom: 8px; margin-top: 0; padding-top: 1rem; margin-bottom: 1.25rem; }
+
+#toc { border-bottom: 0 solid #dddddd; padding-bottom: 0.5em; }
+#toc > ul { margin-left: 0.125em; }
+#toc ul.sectlevel0 > li > a { font-style: italic; }
+#toc ul.sectlevel0 ul.sectlevel1 { margin: 0.5em 0; }
+#toc ul { font-family: Arial, sans-serif; list-style-type: none; }
+#toc a { text-decoration: none; }
+#toc a:active { text-decoration: underline; }
+
+#toctitle { color: #003b6b; font-size: 1.2em; }
+
+@media only screen and (min-width: 768px) { #toctitle { font-size: 1.375em; }
+  body.toc2 { padding-left: 15em; padding-right: 0; }
+  #toc.toc2 { margin-top: 0 !important; background-color: white; position: fixed; width: 15em; left: 0; top: 0; border-right: 1px solid #dddddd; border-top-width: 0 !important; border-bottom-width: 0 !important; z-index: 1000; padding: 1.25em 1em; height: 100%; overflow: auto; }
+  #toc.toc2 #toctitle { margin-top: 0; font-size: 1.2em; }
+  #toc.toc2 > ul { font-size: 0.9em; margin-bottom: 0; }
+  #toc.toc2 ul ul { margin-left: 0; padding-left: 1em; }
+  #toc.toc2 ul.sectlevel0 ul.sectlevel1 { padding-left: 0; margin-top: 0.5em; margin-bottom: 0.5em; }
+  body.toc2.toc-right { padding-left: 0; padding-right: 15em; }
+  body.toc2.toc-right #toc.toc2 { border-right-width: 0; border-left: 1px solid #dddddd; left: auto; right: 0; } }
+@media only screen and (min-width: 1280px) { body.toc2 { padding-left: 20em; padding-right: 0; }
+  #toc.toc2 { width: 20em; }
+  #toc.toc2 #toctitle { font-size: 1.375em; }
+  #toc.toc2 > ul { font-size: 0.95em; }
+  #toc.toc2 ul ul { padding-left: 1.25em; }
+  body.toc2.toc-right { padding-left: 0; padding-right: 20em; } }
+#content #toc { border-style: solid; border-width: 1px; border-color: #e6e6e6; margin-bottom: 1.25em; padding: 1.25em; background: white; -webkit-border-radius: 0; border-radius: 0; }
+#content #toc > :first-child { margin-top: 0; }
+#content #toc > :last-child { margin-bottom: 0; }
+
+#footer { max-width: 100%; background-color: none; padding: 1.25em; }
+
+#footer-text { color: black; line-height: 1.44; }
+
+.sect1 { padding-bottom: 0.625em; }
+
+@media only screen and (min-width: 768px) { .sect1 { padding-bottom: 1.25em; } }
+.sect1 + .sect1 { border-top: 0 solid #dddddd; }
+
+#content h1 > a.anchor, h2 > a.anchor, h3 > a.anchor, #toctitle > a.anchor, .sidebarblock > .content > .title > a.anchor, h4 > a.anchor, h5 > a.anchor, h6 > a.anchor { position: absolute; z-index: 1001; width: 1.5ex; margin-left: -1.5ex; display: block; text-decoration: none !important; visibility: hidden; text-align: center; font-weight: normal; }
+#content h1 > a.anchor:before, h2 > a.anchor:before, h3 > a.anchor:before, #toctitle > a.anchor:before, .sidebarblock > .content > .title > a.anchor:before, h4 > a.anchor:before, h5 > a.anchor:before, h6 > a.anchor:before { content: "\00A7"; font-size: 0.85em; display: block; padding-top: 0.1em; }
+#content h1:hover > a.anchor, #content h1 > a.anchor:hover, h2:hover > a.anchor, h2 > a.anchor:hover, h3:hover > a.anchor, #toctitle:hover > a.anchor, .sidebarblock > .content > .title:hover > a.anchor, h3 > a.anchor:hover, #toctitle > a.anchor:hover, .sidebarblock > .content > .title > a.anchor:hover, h4:hover > a.anchor, h4 > a.anchor:hover, h5:hover > a.anchor, h5 > a.anchor:hover, h6:hover > a.anchor, h6 > a.anchor:hover { visibility: visible; }
+#content h1 > a.link, h2 > a.link, h3 > a.link, #toctitle > a.link, .sidebarblock > .content > .title > a.link, h4 > a.link, h5 > a.link, h6 > a.link { color: #7b2d00; text-decoration: none; }
+#content h1 > a.link:hover, h2 > a.link:hover, h3 > a.link:hover, #toctitle > a.link:hover, .sidebarblock > .content > .title > a.link:hover, h4 > a.link:hover, h5 > a.link:hover, h6 > a.link:hover { color: #622400; }
+
+.audioblock, .imageblock, .literalblock, .listingblock, .stemblock, .videoblock { margin-bottom: 1.25em; }
+
+.admonitionblock td.content > .title, .audioblock > .title, .exampleblock > .title, .imageblock > .title, .listingblock > .title, .literalblock > .title, .stemblock > .title, .openblock > .title, .paragraph > .title, .quoteblock > .title, table.tableblock > .title, .verseblock > .title, .videoblock > .title, .dlist > .title, .olist > .title, .ulist > .title, .qlist > .title, .hdlist > .title { text-rendering: optimizeLegibility; text-align: left; }
+
+table.tableblock > caption.title { white-space: nowrap; overflow: visible; max-width: 0; }
+
+.paragraph.lead > p, #preamble > .sectionbody > .paragraph:first-of-type p { color: #7b2d00; }
+
+table.tableblock #preamble > .sectionbody > .paragraph:first-of-type p { font-size: inherit; }
+
+.admonitionblock > table { border-collapse: separate; border: 0; background: none; width: 100%; }
+.admonitionblock > table td.icon { text-align: center; width: 80px; }
+.admonitionblock > table td.icon img { max-width: none; }
+.admonitionblock > table td.icon .title { font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; }
+.admonitionblock > table td.content { padding-left: 1.125em; padding-right: 1.25em; border-left: 1px solid #dddddd; color: #e15200; }
+.admonitionblock > table td.content > :last-child > :last-child { margin-bottom: 0; }
+
+.exampleblock > .content { border-style: solid; border-width: 1px; border-color: #e6e6e6; margin-bottom: 1.25em; padding: 1.25em; background: white; -webkit-border-radius: 0; border-radius: 0; }
+.exampleblock > .content > :first-child { margin-top: 0; }
+.exampleblock > .content > :last-child { margin-bottom: 0; }
+
+.sidebarblock { border-style: solid; border-width: 1px; border-color: #e6e6e6; margin-bottom: 1.25em; padding: 1.25em; background: white; -webkit-border-radius: 0; border-radius: 0; }
+.sidebarblock > :first-child { margin-top: 0; }
+.sidebarblock > :last-child { margin-bottom: 0; }
+.sidebarblock > .content > .title { color: #003b6b; margin-top: 0; }
+
+.exampleblock > .content > :last-child > :last-child, .exampleblock > .content .olist > ol > li:last-child > :last-child, .exampleblock > .content .ulist > ul > li:last-child > :last-child, .exampleblock > .content .qlist > ol > li:last-child > :last-child, .sidebarblock > .content > :last-child > :last-child, .sidebarblock > .content .olist > ol > li:last-child > :last-child, .sidebarblock > .content .ulist > ul > li:last-child > :last-child, .sidebarblock > .content .qlist > ol > li:last-child > :last-child { margin-bottom: 0; }
+
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint { background: #eeeeee; }
+.sidebarblock .literalblock pre, .sidebarblock .listingblock pre:not(.highlight), .sidebarblock .listingblock pre[class="highlight"], .sidebarblock .listingblock pre[class^="highlight "], .sidebarblock .listingblock pre.CodeRay, .sidebarblock .listingblock pre.prettyprint { background: #f2f1f1; }
+
+.literalblock pre, .literalblock pre[class], .listingblock pre, .listingblock pre[class] { border: 1px dashed #666666; -webkit-border-radius: 0; border-radius: 0; word-wrap: break-word; padding: 1.25em 1.5625em 1.125em 1.5625em; font-size: 0.8125em; }
+.literalblock pre.nowrap, .literalblock pre[class].nowrap, .listingblock pre.nowrap, .listingblock pre[class].nowrap { overflow-x: auto; white-space: pre; word-wrap: normal; }
+@media only screen and (min-width: 768px) { .literalblock pre, .literalblock pre[class], .listingblock pre, .listingblock pre[class] { font-size: 0.90625em; } }
+@media only screen and (min-width: 1280px) { .literalblock pre, .literalblock pre[class], .listingblock pre, .listingblock pre[class] { font-size: 1em; } }
+
+.literalblock.output pre { color: #eeeeee; background-color: black; }
+
+.listingblock pre.highlightjs { padding: 0; }
+.listingblock pre.highlightjs > code { padding: 1.25em 1.5625em 1.125em 1.5625em; -webkit-border-radius: 0; border-radius: 0; }
+
+.listingblock > .content { position: relative; }
+
+.listingblock code[data-lang]:before { display: none; content: attr(data-lang); position: absolute; font-size: 0.75em; top: 0.425rem; right: 0.5rem; line-height: 1; text-transform: uppercase; color: #999; }
+
+.listingblock:hover code[data-lang]:before { display: block; }
+
+.listingblock.terminal pre .command:before { content: attr(data-prompt); padding-right: 0.5em; color: #999; }
+
+.listingblock.terminal pre .command:not([data-prompt]):before { content: "$"; }
+
+table.pyhltable { border-collapse: separate; border: 0; margin-bottom: 0; background: none; }
+
+table.pyhltable td { vertical-align: top; padding-top: 0; padding-bottom: 0; }
+
+table.pyhltable td.code { padding-left: .75em; padding-right: 0; }
+
+pre.pygments .lineno, table.pyhltable td:not(.code) { color: #999; padding-left: 0; padding-right: .5em; border-right: 1px solid #dddddd; }
+
+pre.pygments .lineno { display: inline-block; margin-right: .25em; }
+
+table.pyhltable .linenodiv { background: none !important; padding-right: 0 !important; }
+
+.quoteblock { margin: 0 1em 0.75em 1.5em; display: table; }
+.quoteblock > .title { margin-left: -1.5em; margin-bottom: 0.75em; }
+.quoteblock blockquote, .quoteblock blockquote p { color: #333333; font-size: 1.15rem; line-height: 1.75; word-spacing: 0.1em; letter-spacing: 0; font-style: italic; text-align: justify; }
+.quoteblock blockquote { margin: 0; padding: 0; border: 0; }
+.quoteblock blockquote:before { content: "\201c"; float: left; font-size: 2.75em; font-weight: bold; line-height: 0.6em; margin-left: -0.6em; color: #003b6b; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
+.quoteblock blockquote > .paragraph:last-child p { margin-bottom: 0; }
+.quoteblock .attribution { margin-top: 0.5em; margin-right: 0.5ex; text-align: right; }
+.quoteblock .quoteblock { margin-left: 0; margin-right: 0; padding: 0.5em 0; border-left: 3px solid #e15200; }
+.quoteblock .quoteblock blockquote { padding: 0 0 0 0.75em; }
+.quoteblock .quoteblock blockquote:before { display: none; }
+
+.verseblock { margin: 0 1em 0.75em 1em; }
+.verseblock pre { font-family: "Open Sans", "DejaVu Sans", sans; font-size: 1.15rem; color: #333333; font-weight: 300; text-rendering: optimizeLegibility; }
+.verseblock pre strong { font-weight: 400; }
+.verseblock .attribution { margin-top: 1.25rem; margin-left: 0.5ex; }
+
+.quoteblock .attribution, .verseblock .attribution { font-size: 0.8125em; line-height: 1.45; font-style: italic; }
+.quoteblock .attribution br, .verseblock .attribution br { display: none; }
+.quoteblock .attribution cite, .verseblock .attribution cite { display: block; letter-spacing: -0.05em; color: #e15200; }
+
+.quoteblock.abstract { margin: 0 0 0.75em 0; display: block; }
+.quoteblock.abstract blockquote, .quoteblock.abstract blockquote p { text-align: left; word-spacing: 0; }
+.quoteblock.abstract blockquote:before, .quoteblock.abstract blockquote p:first-of-type:before { display: none; }
+
+table.tableblock { max-width: 100%; border-collapse: separate; }
+table.tableblock td > .paragraph:last-child p > p:last-child, table.tableblock th > p:last-child, table.tableblock td > p:last-child { margin-bottom: 0; }
+
+table.spread { width: 100%; }
+
+table.tableblock, th.tableblock, td.tableblock { border: 0 solid #d8d8ce; }
+
+table.grid-all th.tableblock, table.grid-all td.tableblock { border-width: 0 1px 1px 0; }
+
+table.grid-all tfoot > tr > th.tableblock, table.grid-all tfoot > tr > td.tableblock { border-width: 1px 1px 0 0; }
+
+table.grid-cols th.tableblock, table.grid-cols td.tableblock { border-width: 0 1px 0 0; }
+
+table.grid-all * > tr > .tableblock:last-child, table.grid-cols * > tr > .tableblock:last-child { border-right-width: 0; }
+
+table.grid-rows th.tableblock, table.grid-rows td.tableblock { border-width: 0 0 1px 0; }
+
+table.grid-all tbody > tr:last-child > th.tableblock, table.grid-all tbody > tr:last-child > td.tableblock, table.grid-all thead:last-child > tr > th.tableblock, table.grid-rows tbody > tr:last-child > th.tableblock, table.grid-rows tbody > tr:last-child > td.tableblock, table.grid-rows thead:last-child > tr > th.tableblock { border-bottom-width: 0; }
+
+table.grid-rows tfoot > tr > th.tableblock, table.grid-rows tfoot > tr > td.tableblock { border-width: 1px 0 0 0; }
+
+table.frame-all { border-width: 1px; }
+
+table.frame-sides { border-width: 0 1px; }
+
+table.frame-topbot { border-width: 1px 0; }
+
+th.halign-left, td.halign-left { text-align: left; }
+
+th.halign-right, td.halign-right { text-align: right; }
+
+th.halign-center, td.halign-center { text-align: center; }
+
+th.valign-top, td.valign-top { vertical-align: top; }
+
+th.valign-bottom, td.valign-bottom { vertical-align: bottom; }
+
+th.valign-middle, td.valign-middle { vertical-align: middle; }
+
+table thead th, table tfoot th { font-weight: bold; }
+
+tbody tr th { display: table-cell; line-height: 1.4; background: -webkit-linear-gradient(top, #add386, #90b66a); }
+
+tbody tr th, tbody tr th p, tfoot tr th, tfoot tr th p { color: white; font-weight: bold; }
+
+p.tableblock > code:only-child { background: none; padding: 0; }
+
+p.tableblock { font-size: 1em; }
+
+td > div.verse { white-space: pre; }
+
+ol { margin-left: 1.75em; }
+
+ul li ol { margin-left: 1.5em; }
+
+dl dd { margin-left: 1.125em; }
+
+dl dd:last-child, dl dd:last-child > :last-child { margin-bottom: 0; }
+
+ol > li p, ul > li p, ul dd, ol dd, .olist .olist, .ulist .ulist, .ulist .olist, .olist .ulist { margin-bottom: 0.375em; }
+
+ul.unstyled, ol.unnumbered, ul.checklist, ul.none { list-style-type: none; }
+
+ul.unstyled, ol.unnumbered, ul.checklist { margin-left: 0.625em; }
+
+ul.checklist li > p:first-child > .fa-square-o:first-child, ul.checklist li > p:first-child > .fa-check-square-o:first-child { width: 1em; font-size: 0.85em; }
+
+ul.checklist li > p:first-child > input[type="checkbox"]:first-child { width: 1em; position: relative; top: 1px; }
+
+ul.inline { margin: 0 auto 0.375em auto; margin-left: -1.375em; margin-right: 0; padding: 0; list-style: none; overflow: hidden; }
+ul.inline > li { list-style: none; float: left; margin-left: 1.375em; display: block; }
+ul.inline > li > * { display: block; }
+
+.unstyled dl dt { font-weight: normal; font-style: normal; }
+
+ol.arabic { list-style-type: decimal; }
+
+ol.decimal { list-style-type: decimal-leading-zero; }
+
+ol.loweralpha { list-style-type: lower-alpha; }
+
+ol.upperalpha { list-style-type: upper-alpha; }
+
+ol.lowerroman { list-style-type: lower-roman; }
+
+ol.upperroman { list-style-type: upper-roman; }
+
+ol.lowergreek { list-style-type: lower-greek; }
+
+.hdlist > table, .colist > table { border: 0; background: none; }
+.hdlist > table > tbody > tr, .colist > table > tbody > tr { background: none; }
+
+td.hdlist1 { padding-right: .75em; font-weight: bold; }
+
+td.hdlist1, td.hdlist2 { vertical-align: top; }
+
+.literalblock + .colist, .listingblock + .colist { margin-top: -0.5em; }
+
+.colist > table tr > td:first-of-type { padding: 0 0.75em; line-height: 1; }
+.colist > table tr > td:last-of-type { padding: 0.25em 0; }
+
+.thumb, .th { line-height: 0; display: inline-block; border: solid 4px white; -webkit-box-shadow: 0 0 0 1px #dddddd; box-shadow: 0 0 0 1px #dddddd; }
+
+.imageblock.left, .imageblock[style*="float: left"] { margin: 0.25em 0.625em 1.25em 0; }
+.imageblock.right, .imageblock[style*="float: right"] { margin: 0.25em 0 1.25em 0.625em; }
+.imageblock > .title { margin-bottom: 0; }
+.imageblock.thumb, .imageblock.th { border-width: 6px; }
+.imageblock.thumb > .title, .imageblock.th > .title { padding: 0 0.125em; }
+
+.image.left, .image.right { margin-top: 0.25em; margin-bottom: 0.25em; display: inline-block; line-height: 0; }
+.image.left { margin-right: 0.625em; }
+.image.right { margin-left: 0.625em; }
+
+a.image { text-decoration: none; }
+
+span.footnote, span.footnoteref { vertical-align: super; font-size: 0.875em; }
+span.footnote a, span.footnoteref a { text-decoration: none; }
+span.footnote a:active, span.footnoteref a:active { text-decoration: underline; }
+
+#footnotes { padding-top: 0.75em; padding-bottom: 0.75em; margin-bottom: 0.625em; }
+#footnotes hr { width: 20%; min-width: 6.25em; margin: -.25em 0 .75em 0; border-width: 1px 0 0 0; }
+#footnotes .footnote { padding: 0 0.375em; line-height: 1.3; font-size: 0.875em; margin-left: 1.2em; text-indent: -1.2em; margin-bottom: .2em; }
+#footnotes .footnote a:first-of-type { font-weight: bold; text-decoration: none; }
+#footnotes .footnote:last-of-type { margin-bottom: 0; }
+
+#content #footnotes { margin-top: -0.625em; margin-bottom: 0; padding: 0.75em 0; }
+
+.gist .file-data > table { border: 0; background: #fff; width: 100%; margin-bottom: 0; }
+.gist .file-data > table td.line-data { width: 99%; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+.big { font-size: larger; }
+
+.small { font-size: smaller; }
+
+.underline { text-decoration: underline; }
+
+.overline { text-decoration: overline; }
+
+.line-through { text-decoration: line-through; }
+
+.aqua { color: #00bfbf; }
+
+.aqua-background { background-color: #00fafa; }
+
+.black { color: black; }
+
+.black-background { background-color: black; }
+
+.blue { color: #0000bf; }
+
+.blue-background { background-color: #0000fa; }
+
+.fuchsia { color: #bf00bf; }
+
+.fuchsia-background { background-color: #fa00fa; }
+
+.gray { color: #606060; }
+
+.gray-background { background-color: #7d7d7d; }
+
+.green { color: #006000; }
+
+.green-background { background-color: #007d00; }
+
+.lime { color: #00bf00; }
+
+.lime-background { background-color: #00fa00; }
+
+.maroon { color: #600000; }
+
+.maroon-background { background-color: #7d0000; }
+
+.navy { color: #000060; }
+
+.navy-background { background-color: #00007d; }
+
+.olive { color: #606000; }
+
+.olive-background { background-color: #7d7d00; }
+
+.purple { color: #600060; }
+
+.purple-background { background-color: #7d007d; }
+
+.red { color: #bf0000; }
+
+.red-background { background-color: #fa0000; }
+
+.silver { color: #909090; }
+
+.silver-background { background-color: #bcbcbc; }
+
+.teal { color: #006060; }
+
+.teal-background { background-color: #007d7d; }
+
+.white { color: #bfbfbf; }
+
+.white-background { background-color: #fafafa; }
+
+.yellow { color: #bfbf00; }
+
+.yellow-background { background-color: #fafa00; }
+
+span.icon > .fa { cursor: default; }
+
+.admonitionblock td.icon [class^="fa icon-"] { font-size: 2.5em; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); cursor: default; }
+.admonitionblock td.icon .icon-note:before { content: "\f05a"; color: #004176; }
+.admonitionblock td.icon .icon-tip:before { content: "\f0eb"; text-shadow: 1px 1px 2px rgba(155, 155, 0, 0.8); color: #111; }
+.admonitionblock td.icon .icon-warning:before { content: "\f071"; color: #bf6900; }
+.admonitionblock td.icon .icon-caution:before { content: "\f06d"; color: #bf3400; }
+.admonitionblock td.icon .icon-important:before { content: "\f06a"; color: #bf0000; }
+
+.conum[data-value] { display: inline-block; color: #fff !important; background-color: black; -webkit-border-radius: 100px; border-radius: 100px; text-align: center; font-size: 0.75em; width: 1.67em; height: 1.67em; line-height: 1.67em; font-family: "Open Sans", "DejaVu Sans", sans-serif; font-style: normal; font-weight: bold; }
+.conum[data-value] * { color: #fff !important; }
+.conum[data-value] + b { display: none; }
+.conum[data-value]:after { content: attr(data-value); }
+pre .conum[data-value] { position: relative; top: -0.125em; }
+
+b.conum * { color: inherit !important; }
+
+.conum:not([data-value]):empty { display: none; }
+
+h1, h2, h3, #toctitle, .sidebarblock > .content > .title, h4, h5, h6 { border-bottom: 1px solid #dddddd; }
+
+.sect1 { padding-bottom: 0; }
+
+#toctitle { color: #00406F; font-weight: normal; margin-top: 1.5em; }
+
+.sidebarblock { border-color: #aaa; }
+
+code { -webkit-border-radius: 4px; border-radius: 4px; }
+
+p.tableblock.header { color: #6d6e71; }
+
+.literalblock pre, .listingblock pre { background: #eeeeee; }
+
+</style>
+<style>
+.listingblock .pygments .hll { background-color: #ffffcc }
+.listingblock .pygments, .listingblock .pygments code { background: #ffffff; }
+.listingblock .pygments .tok-c { color: #aaaaaa; font-style: italic } /* Comment */
+.listingblock .pygments .tok-err { color: #FF0000; background-color: #FFAAAA } /* Error */
+.listingblock .pygments .tok-k { color: #0000aa } /* Keyword */
+.listingblock .pygments .tok-ch { color: #aaaaaa; font-style: italic } /* Comment.Hashbang */
+.listingblock .pygments .tok-cm { color: #aaaaaa; font-style: italic } /* Comment.Multiline */
+.listingblock .pygments .tok-cp { color: #4c8317 } /* Comment.Preproc */
+.listingblock .pygments .tok-cpf { color: #aaaaaa; font-style: italic } /* Comment.PreprocFile */
+.listingblock .pygments .tok-c1 { color: #aaaaaa; font-style: italic } /* Comment.Single */
+.listingblock .pygments .tok-cs { color: #0000aa; font-style: italic } /* Comment.Special */
+.listingblock .pygments .tok-gd { color: #aa0000 } /* Generic.Deleted */
+.listingblock .pygments .tok-ge { font-style: italic } /* Generic.Emph */
+.listingblock .pygments .tok-gr { color: #aa0000 } /* Generic.Error */
+.listingblock .pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.listingblock .pygments .tok-gi { color: #00aa00 } /* Generic.Inserted */
+.listingblock .pygments .tok-go { color: #888888 } /* Generic.Output */
+.listingblock .pygments .tok-gp { color: #555555 } /* Generic.Prompt */
+.listingblock .pygments .tok-gs { font-weight: bold } /* Generic.Strong */
+.listingblock .pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.listingblock .pygments .tok-gt { color: #aa0000 } /* Generic.Traceback */
+.listingblock .pygments .tok-kc { color: #0000aa } /* Keyword.Constant */
+.listingblock .pygments .tok-kd { color: #0000aa } /* Keyword.Declaration */
+.listingblock .pygments .tok-kn { color: #0000aa } /* Keyword.Namespace */
+.listingblock .pygments .tok-kp { color: #0000aa } /* Keyword.Pseudo */
+.listingblock .pygments .tok-kr { color: #0000aa } /* Keyword.Reserved */
+.listingblock .pygments .tok-kt { color: #00aaaa } /* Keyword.Type */
+.listingblock .pygments .tok-m { color: #009999 } /* Literal.Number */
+.listingblock .pygments .tok-s { color: #aa5500 } /* Literal.String */
+.listingblock .pygments .tok-na { color: #1e90ff } /* Name.Attribute */
+.listingblock .pygments .tok-nb { color: #00aaaa } /* Name.Builtin */
+.listingblock .pygments .tok-nc { color: #00aa00; text-decoration: underline } /* Name.Class */
+.listingblock .pygments .tok-no { color: #aa0000 } /* Name.Constant */
+.listingblock .pygments .tok-nd { color: #888888 } /* Name.Decorator */
+.listingblock .pygments .tok-ni { color: #880000; font-weight: bold } /* Name.Entity */
+.listingblock .pygments .tok-nf { color: #00aa00 } /* Name.Function */
+.listingblock .pygments .tok-nn { color: #00aaaa; text-decoration: underline } /* Name.Namespace */
+.listingblock .pygments .tok-nt { color: #1e90ff; font-weight: bold } /* Name.Tag */
+.listingblock .pygments .tok-nv { color: #aa0000 } /* Name.Variable */
+.listingblock .pygments .tok-ow { color: #0000aa } /* Operator.Word */
+.listingblock .pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+.listingblock .pygments .tok-mb { color: #009999 } /* Literal.Number.Bin */
+.listingblock .pygments .tok-mf { color: #009999 } /* Literal.Number.Float */
+.listingblock .pygments .tok-mh { color: #009999 } /* Literal.Number.Hex */
+.listingblock .pygments .tok-mi { color: #009999 } /* Literal.Number.Integer */
+.listingblock .pygments .tok-mo { color: #009999 } /* Literal.Number.Oct */
+.listingblock .pygments .tok-sa { color: #aa5500 } /* Literal.String.Affix */
+.listingblock .pygments .tok-sb { color: #aa5500 } /* Literal.String.Backtick */
+.listingblock .pygments .tok-sc { color: #aa5500 } /* Literal.String.Char */
+.listingblock .pygments .tok-dl { color: #aa5500 } /* Literal.String.Delimiter */
+.listingblock .pygments .tok-sd { color: #aa5500 } /* Literal.String.Doc */
+.listingblock .pygments .tok-s2 { color: #aa5500 } /* Literal.String.Double */
+.listingblock .pygments .tok-se { color: #aa5500 } /* Literal.String.Escape */
+.listingblock .pygments .tok-sh { color: #aa5500 } /* Literal.String.Heredoc */
+.listingblock .pygments .tok-si { color: #aa5500 } /* Literal.String.Interpol */
+.listingblock .pygments .tok-sx { color: #aa5500 } /* Literal.String.Other */
+.listingblock .pygments .tok-sr { color: #009999 } /* Literal.String.Regex */
+.listingblock .pygments .tok-s1 { color: #aa5500 } /* Literal.String.Single */
+.listingblock .pygments .tok-ss { color: #0000aa } /* Literal.String.Symbol */
+.listingblock .pygments .tok-bp { color: #00aaaa } /* Name.Builtin.Pseudo */
+.listingblock .pygments .tok-fm { color: #00aa00 } /* Name.Function.Magic */
+.listingblock .pygments .tok-vc { color: #aa0000 } /* Name.Variable.Class */
+.listingblock .pygments .tok-vg { color: #aa0000 } /* Name.Variable.Global */
+.listingblock .pygments .tok-vi { color: #aa0000 } /* Name.Variable.Instance */
+.listingblock .pygments .tok-vm { color: #aa0000 } /* Name.Variable.Magic */
+.listingblock .pygments .tok-il { color: #009999 } /* Literal.Number.Integer.Long */
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>MoonAgents Reference Manual</h1>
+<div class="details">
+<span id="author" class="author">Stefano Trettel</span><br>
+<span id="revnumber">version 0.1,</span>
+<span id="revdate">2019-01-15</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_preface">Preface</a>
+<ul class="sectlevel2">
+<li><a href="#_getting_and_installing">Getting and installing</a></li>
+<li><a href="#_module_organization">Module organization</a></li>
+<li><a href="#_examples">Examples</a></li>
+<li><a href="#_license">License</a></li>
+<li><a href="#see-also">See also</a></li>
+</ul>
+</li>
+<li><a href="#_overview">Overview</a></li>
+<li><a href="#_agent_scripts">Agent-scripts</a></li>
+<li><a href="#_creating_agents">Creating agents</a></li>
+<li><a href="#fsm">State machines</a></li>
+<li><a href="#_stopping">Stopping</a></li>
+<li><a href="#_trigger">Trigger</a></li>
+<li><a href="#_signals">Signals</a></li>
+<li><a href="#_system_time">System time</a></li>
+<li><a href="#timers">Timers</a></li>
+<li><a href="#_procedures">Procedures</a></li>
+<li><a href="#_remote_functions">Remote functions</a></li>
+<li><a href="#_sockets">Sockets</a></li>
+<li><a href="#_agent_information">Agent information</a></li>
+<li><a href="#_logs_and_traces">Logs and Traces</a></li>
+<li><a href="#_text_style_control">Text style control</a></li>
+<li><a href="#_optional_configurations">Optional configurations</a></li>
+<li><a href="#_special_variables">Special variables</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<a class="image" href="http://www.lua.org"><img src="powered-by-lua.gif" alt="Lua logo"></a>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_preface">Preface</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is the reference manual
+<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup>
+of <strong>MoonAgents</strong>, which is a
+<a href="http://www.lua.org"><strong>Lua</strong></a> module for <strong>event-driven concurrent programming</strong>, whose design follows the
+concurrency model of the
+<strong><a href="http://en.wikipedia.org/wiki/Specification_and_Description_Language">ITU-T Specification and
+Description Language (SDL)</a></strong>.
+<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</sup></p>
+</div>
+<div class="paragraph">
+<p>It is assumed that the reader is familiar with both SDL
+and the Lua programming language.</p>
+</div>
+<div class="paragraph">
+<p>For convenience of reference, this document contains external (deep) links to the
+<a href="http://www.lua.org/manual/5.3/manual.html">Lua Reference Manual</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_getting_and_installing">Getting and installing</h3>
+<div class="paragraph">
+<p>For installation intructions, refer to the README file in the
+<a href="https://github.com/stetre/moonagents"><strong>MoonAgents official repository</strong></a>
+on GitHub.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_module_organization">Module organization</h3>
+<div class="paragraph">
+<p>The MoonAgents module is loaded using Lua&#8217;s
+<a href="http://www.lua.org/manual/5.3/manual.html#pdf-require">require</a>() and
+returns a table containing the functions it provides
+(as usual with Lua modules). This manual assumes that such
+table is named <strong>moonagents</strong>, i.e. that it is loaded with:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="lua"><span></span> <span class="tok-n">moonagents</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;moonagents&quot;</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>but nothing forbids the use of a different name.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_examples">Examples</h3>
+<div class="paragraph">
+<p>Complete examples can be found in the <strong>examples/</strong> directory of the release package.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_license">License</h3>
+<div class="paragraph">
+<p>MoonAgents is released under the <strong>MIT/X11 license</strong> (same as
+<a href="http://www.lua.org/license.html">Lua</a>, and with the same only requirement to give proper
+credits to the original author).
+The copyright notice is in the LICENSE file in the base directory
+of the <a href="https://github.com/stetre/moonagents">official repository</a> on GitHub.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="see-also">See also</h3>
+<div class="paragraph">
+<p>MoonAgents is part of <a href="https://github.com/stetre/moonlibs">MoonLibs</a>, a collection of
+Lua libraries for graphics and audio programming.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview">Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MoonAgents extends Lua with the basic constructs for the implementation of SDL systems
+<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</sup>,
+which are systems composed of concurrent, reactive, and intercommunicating
+entities referred to as <strong>agents</strong>. You can think of agents as of
+<a href="http://en.wikipedia.org/wiki/Computer_multitasking#Cooperative_multitasking">cooperative</a>
+threads of execution interleaved in a single OS-thread,
+akin to Lua&#8217;s native <a href="http://www.lua.org/manual/5.3/manual.html#2.6">coroutines</a>
+<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</sup>.</p>
+</div>
+<div class="paragraph">
+<p>The behavior of agents is defined by <a href="#_agent_scripts"><strong>agent-scripts</strong></a>
+in terms of <a href="#fsm"><strong>finite state machines</strong></a> whose transitions are triggered by the reception
+of asynchronous <a href="#_signals"><strong>signals</strong></a> (messages), which are plain Lua tables containing a
+signal name (a string) plus whatever else the system designer desires.</p>
+</div>
+<div class="paragraph">
+<p>Asynchronous signals are the main communication method in the system: agents communicate
+mainly by exchanging signals with each other and with the application
+(that can be seen as what in SDL parlance is called the <em>'environment'</em>
+<sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnote_5" title="View footnote.">5</a>]</sup>),
+and may create and arm <a href="#_timers"><strong>timers</strong></a>
+whose expiries are also notified to them by means of signals.</p>
+</div>
+<div id="dedicated_env" class="paragraph">
+<p>Agents are created with the <a href="#_creating_agents"><strong>create</strong></a>( ) function, passing it
+the agent-scripts and optional parameters. Each agent is run in a
+<a href="http://www.lua.org/manual/5.3/manual.html#2.2"><strong>dedicated Lua environment (_ENV)</strong></a>
+that provides it with an own context of execution and separates its namespace from those
+of other agents running in the same application.
+In this _ENV, MoonAgents preloads the <strong>moonagents</strong> table with the functions available
+to the script, and sets some <a href="#_special_variables"><strong>special variables</strong></a> that it uses
+to share information with the agent (and some other special variables for internal
+use that the agent-scripts must not touch nor care about).</p>
+</div>
+<div class="paragraph">
+<p>The main script of a typical application using MoonAgents looks like in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="lua"><span></span> <span class="tok-kd">local</span> <span class="tok-n">moonagents</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;moonagents&quot;</span><span class="tok-p">)</span>
+
+ <span class="tok-c1">-- ... optional configurations and other non-MoonAgents setups...</span>
+
+ <span class="tok-c1">-- Start the SDL system, by creating the first agent:</span>
+ <span class="tok-kd">local</span> <span class="tok-n">pid</span> <span class="tok-o">=</span> <span class="tok-n">moonagents</span><span class="tok-p">.</span><span class="tok-n">create_system</span><span class="tok-p">(</span><span class="tok-s2">&quot;MyAgentName&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;myagentscript&quot;</span><span class="tok-p">)</span>
+
+ <span class="tok-c1">-- Event loop:</span>
+ <span class="tok-kr">while</span> <span class="tok-kc">true</span> <span class="tok-kr">do</span>
+    <span class="tok-c1">-- Trigger the signal scheduler:</span>
+    <span class="tok-kr">if</span> <span class="tok-ow">not</span> <span class="tok-n">moonagents</span><span class="tok-p">.</span><span class="tok-n">trigger</span><span class="tok-p">()</span> <span class="tok-kr">then</span>
+       <span class="tok-c1">-- ... the SDL system has stopped ...</span>
+    <span class="tok-kr">end</span>
+    <span class="tok-c1">-- Other typical event-loop stuff goes here or above</span>
+    <span class="tok-c1">-- (e.g. input handling, draw calls, etc.)</span>
+ <span class="tok-kr">end</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The application loads the MoonAgents module, optionally <a href="#_optional_configurations">configures</a> it,
+<a href="#_creating_agents">creates</a> the first agent, and then enters an event loop where, among
+other typical event-loop stuff, it is expected to call the <a href="#trigger">trigger</a>(&nbsp;) function
+that causes an internal scheduler to dispatch any signal pending in the SDL system to the agents.</p>
+</div>
+<div id="system_agent" class="paragraph">
+<p>The first created agent is called the <strong>system agent</strong> and is the only one directly created
+by the application. Other agents may be created by the system agent and by its descendants
+during the evolution of the system&#8217;s life, that coincides with that of the system agent
+(when this terminates, the system does also).
+<sup class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnote_6" title="View footnote.">6</a>]</sup></p>
+</div>
+<div id="agent_hierarchy" class="paragraph">
+<p>The creator of an agent is its <em>parent</em> (the parent of the system agent being the application).
+Thus, agents are naturally organized in a <strong>hierarchical tree</strong> rooted at the application,
+whose only child is the system agent. Any agent other than the application has one <em>parent</em> and
+may have zero or more <em>children</em>.</p>
+</div>
+<div id="pid" class="paragraph">
+<p>Each agent has a <strong>process identifier (pid)</strong>, an integer value unique within the SDL system and
+automatically assigned to the agent at its creation.
+The special value <strong>pid=0</strong> identifies the application.
+Unique pids in the same domain are also assigned to <a href="#_procedures">procedures</a>.
+<sup class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</sup></p>
+</div>
+<div id="agent_name" class="paragraph">
+<p>At its creation, each agent is also assigned a name. The <em>name</em> passed to the
+<a href="#create">create</a>(&nbsp;) function (or automatically assigned) is the agent&#8217;s <strong>local name</strong>,
+which is required to be unique only among siblings, i.e. in the set of children of the agent&#8217;s
+<a href="#agent_hierarchy">parent</a>.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>relative name</strong> of the agent with respect to a given ancestor is the concatenation,
+dot-separated, of all the names on the lineage from the ancestor (excluded) to the agent
+itself (included). The relative name with respect to its parent is thus the local name.
+A relative name is unique only among descendants of the ancestor it is relative to.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>full name</strong> of the agent is its name relative to the application (i.e. obtained by
+concatenating the names on the lineage starting from the system agent included).
+The full name is unique within the whole system.</p>
+</div>
+<div class="paragraph">
+<p>The agent name may encode information such as the agent&#8217;s &#8216;type&#8217; and &#8216;instance&#8217; (if
+the system designer wants so), and provides a convenient way to identify agents in
+reusable agent-scripts without relying on the pid which may (and generally does)
+vary from application to application.
+Functions are provided to <a href="#_agent_information">resolve agent names into pids</a> and viceversa.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agent_scripts">Agent-scripts</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An agent-script defines the behavior of an agent in terms of a <a href="#fsm">state machine</a> whose
+transitions are triggered by the asynchronous arrival of input <a href="#_signals">signals</a> sent
+to the agent by other agents, by the application, by timers, or by the agent
+itself.</p>
+</div>
+<div class="paragraph">
+<p>The script and the transitions for an agent are executed in the agent&#8217;s own
+<a href="#dedicated_env">_ENV</a>, so global functions and variables of an agent do not collide
+with those of other agents (they are 'global' only in its dedicated _ENV).
+The same script may be used for multiple concurrently-running agents, which means
+it really defines 'a type of agent' rather than 'an agent'.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>moonagents</strong> table with the functions needed by the agent-script is pre-loaded
+in the agent&#8217;s dedicated _ENV at startup. The script can access the functions via
+the table, or it can use the following utility to make them global in the _ENV:</p>
+</div>
+<div id="global_functions" class="ulist">
+<ul>
+<li>
+<p><strong>global_functions</strong>([<em>prefix</em>])<br>
+<span class="small">Makes <strong>moonagents</strong> functions global in the current agent&#8217;s
+<a href="#dedicated_env">dedicated _ENV</a>, optionally prendending their names with the
+<em>prefix</em> string (for example, the call <em>global_functions("xxx")</em> makes
+ <em>moonagents.stop</em> global with the name <em>xxxstop</em>, and similarly for the other functions).<br>
+This function is available only to agents and should be used at startup.</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>An incomplete example of an agent-script is shown below: the top section is the
+startup code to be executed before the start transition (e.g. timers are created here),
+the bottom section defines the transition table by associating Lua functions to
+combinations of states and input signals names, and the middle section
+implements those Lua functions.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="lua"><span></span> <span class="tok-c1">-- Example agent-script</span>
+
+ <span class="tok-c1">-- =========== Top section: startup code ==========================</span>
+
+ <span class="tok-c1">-- Make moonagents functions global in this _ENV:</span>
+ <span class="tok-n">moonagents</span><span class="tok-p">.</span><span class="tok-n">global_functions</span><span class="tok-p">()</span>
+
+ <span class="tok-c1">-- Create timers, set variables etc.</span>
+ <span class="tok-kd">local</span> <span class="tok-n">T</span> <span class="tok-o">=</span> <span class="tok-n">timer</span><span class="tok-p">(</span><span class="tok-mi">30</span><span class="tok-p">,</span><span class="tok-s2">&quot;T_EXPIRED&quot;</span><span class="tok-p">)</span>
+ <span class="tok-kd">local</span> <span class="tok-n">somevariable</span> <span class="tok-o">=</span> <span class="tok-mi">0</span>
+
+ <span class="tok-c1">-- =========== Middle section: the transition functions ===========</span>
+
+ <span class="tok-kd">local</span> <span class="tok-kr">function</span> <span class="tok-nf">Start</span><span class="tok-p">()</span>
+   <span class="tok-c1">-- .. &#39;start transition&#39; here ..</span>
+   <span class="tok-n">next_state</span><span class="tok-p">(</span><span class="tok-s2">&quot;Waiting&quot;</span><span class="tok-p">)</span>
+ <span class="tok-kr">end</span>
+
+ <span class="tok-kd">local</span> <span class="tok-kr">function</span> <span class="tok-nf">Waiting_ConReq</span><span class="tok-p">()</span>
+   <span class="tok-c1">-- received CONREQ signal in Waiting state ...</span>
+   <span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;CONACK&quot;</span> <span class="tok-p">},</span> <span class="tok-n">sender_</span><span class="tok-p">)</span>
+   <span class="tok-n">timer_start</span><span class="tok-p">(</span><span class="tok-n">T</span><span class="tok-p">)</span>
+   <span class="tok-n">next_state</span><span class="tok-p">(</span><span class="tok-s2">&quot;Connecting&quot;</span><span class="tok-p">)</span>
+ <span class="tok-kr">end</span>
+
+ <span class="tok-kd">local</span> <span class="tok-kr">function</span> <span class="tok-nf">Connecting_TExpired</span><span class="tok-p">()</span>
+   <span class="tok-c1">-- received T_EXPIRED signal in Connecting state ...</span>
+   <span class="tok-n">send</span><span class="tok-p">({</span> <span class="tok-s2">&quot;FAILURE&quot;</span> <span class="tok-p">},</span> <span class="tok-n">parent_</span><span class="tok-p">)</span>
+   <span class="tok-n">stop</span><span class="tok-p">()</span>
+ <span class="tok-kr">end</span>
+
+ <span class="tok-c1">-- ... cut ...</span>
+
+ <span class="tok-c1">-- =========== Bottom section: the transition table ===============</span>
+
+ <span class="tok-n">start_transition</span><span class="tok-p">(</span><span class="tok-n">Start</span><span class="tok-p">)</span>
+ <span class="tok-c1">--         state         input signal   transition function</span>
+ <span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Waiting&quot;</span><span class="tok-p">,</span>    <span class="tok-s2">&quot;CONREQ&quot;</span><span class="tok-p">,</span>      <span class="tok-n">Waiting_ConReq</span><span class="tok-p">)</span>
+ <span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Connecting&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;CONCNF&quot;</span><span class="tok-p">,</span>      <span class="tok-n">Connecting_ConCnf</span><span class="tok-p">)</span>
+ <span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Connecting&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;T_EXPIRED&quot;</span><span class="tok-p">,</span>   <span class="tok-n">Connecting_TExpired</span><span class="tok-p">)</span>
+ <span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Connected&quot;</span><span class="tok-p">,</span>  <span class="tok-s2">&quot;DATA&quot;</span><span class="tok-p">,</span>        <span class="tok-n">Connected_Data</span><span class="tok-p">)</span>
+ <span class="tok-n">transition</span><span class="tok-p">(</span><span class="tok-s2">&quot;Any&quot;</span><span class="tok-p">,</span>        <span class="tok-s2">&quot;STOP&quot;</span><span class="tok-p">,</span>        <span class="tok-n">Any_Stop</span><span class="tok-p">)</span>
+ <span class="tok-n">default_state</span><span class="tok-p">(</span><span class="tok-s2">&quot;Any&quot;</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_creating_agents">Creating agents</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Agents are created using the following functions:</p>
+</div>
+<div id="create_system" class="ulist">
+<ul>
+<li>
+<p><em>pid</em> = <strong>create_system</strong>([<em>name</em>], <em>script</em>, <em>&#8230;&#8203;</em>)<br>
+<span class="small">Creates the <a href="#system_agent">system agent</a>, starts the SDL system,
+and returns the system agent&#8217;s pid.<br>
+The parameters have the same meaning as for the <a href="#create">create</a>(&nbsp;) function.<br>
+This function is available only to the application and can be used only when the system is not running.</span></p>
+</li>
+</ul>
+</div>
+<div id="create" class="ulist">
+<ul>
+<li>
+<p><em>pid</em> = <strong>create</strong>([<em>name</em>], <em>script</em>, <em>&#8230;&#8203;</em>)<br>
+<span class="small">Creates an agent other than the system agent.<br>
+<em>name</em>: the agent&#8217;s <a href="#agent_name">name</a> (a string not containing dots). If <em>name=nil</em>, the default
+name <em>"agent&lt;pid&gt;"</em> is used (e.g. <em>"agent1"</em>, <em>agent2"</em>, etc.)<br>
+<em>script</em>: the <a href="#_agent_scripts">agent-script</a> defining the agent&#8217;s behaviour (see below
+for how the script is searched).<br>
+<em>&#8230;&#8203;</em>: optional arguments to be passed to the <a href="#start_transition">start transition</a>.<br>
+This function is available only to agents and should be used within transitions.</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To <strong>find agent-scripts</strong>, the functions above use the same mechanism that Lua uses to find
+modules and packages.</p>
+</div>
+<div class="paragraph">
+<p>More precisely, the <em>script</em> argument (a string) is resolved by invoking the standard Lua
+<a href="http://www.lua.org/manual/5.3/manual.html#pdf-package.searchpath">package.searchpath</a>(&nbsp;)
+function, passing it the templates contained in the variable <strong>moonagents.path</strong> as the
+argument for the <em>path</em> parameter.</p>
+</div>
+<div class="paragraph">
+<p>By default, <em>moonagents.path</em>=<em>"?;?.lua"</em> so that if, for example, an agent is created like
+in the example below then MoonAgents searches for a file named <em>"mydir/myagentscript"</em> or
+<em>mydir/myagentscript.lua"</em> (in this order).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="lua"><span></span> <span class="tok-n">pid</span> <span class="tok-o">=</span> <span class="tok-n">moonagents</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-s2">&quot;myagentname&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;mydir.myagentscript&quot;</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The default <em>moonagents.path</em> can be overridden by setting the <strong>MOONAGENTS_PATH</strong> environment
+variable with the desired path templates, in the same way one sets the standard <strong>LUA_PATH</strong>
+variable to override its default <a href="http://www.lua.org/manual/5.3/manual.html#pdf-package.path">package.path</a>
+(alternatively, one can directly change it from the application).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="fsm">State machines</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>During its life, an agent goes through a series of <strong>states</strong>.
+Each state is represented by a string that may be any valid Lua string except the reserved
+(yet configurable) <a href="#set_special_value">special values</a> for <em>startup</em> and <em>dash</em>.</p>
+</div>
+<div class="paragraph">
+<p>An agent is idle for most of the time and is awakened only when it receives a <a href="#signals">signal</a>.
+Signals are dispatched by an internal scheduler that is periodically activated by the application by
+calling the <a href="#trigger">trigger</a>(&nbsp;) function in its event loop.</p>
+</div>
+<div class="paragraph">
+<p>The reception of a signal causes an agent to execute a <a href="#transition"><strong>transition</strong></a>, which is a
+function set by the agent-script as the code to be executed when signals having the input signal&#8217;s name
+arrive with the agent being in its current state.</p>
+</div>
+<div class="paragraph">
+<p>A special transition is the <strong>start transition</strong>, set by the agent-script with
+<a href="#start_transition">start_transition</a>(&nbsp;),
+that is automatically executed at the end of the agent&#8217;s startup.
+The start transition must contain a <a href="#next_state">next_state</a>(&nbsp;) call to set the first proper
+state entered by the agent, or it can end with a <a href="#stop">stop</a>(&nbsp;) call so to terminate the agent
+right after creation.</p>
+</div>
+<div class="paragraph">
+<p>Transitions are executed in the agent&#8217;s dedicated <a href="#dedicated_env">_ENV</a> and receive no
+arguments, except for the start transition that receives the arguments (if any) that were passed
+to the <a href="#_creating_agents">create</a>(&nbsp;) function in its variable part.</p>
+</div>
+<div class="paragraph">
+<p>The signal contents and other relevant information such as the sender&#8217;s pid are
+passed to the agent by means of some <a href="#_special_variables">special variables</a> that are
+properly set by MoonAgents before executing a transition.
+<sup class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnote_8" title="View footnote.">8</a>]</sup></p>
+</div>
+<div id="dont_hang" class="paragraph">
+<p>When executed, a transition is expected to perform some task depending on the input signal
+and on the state the agent is in (e.g., it may process input data, set timers, send signals,
+and possibly change the agent&#8217;s state), and then return.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+A transition is required to <strong>return as soon as possible</strong>, which means that it must not contain
+infinite loops or calls to blocking functions, otherwise the application would hang
+(the SDL concurrency model is
+<a href="http://en.wikipedia.org/wiki/Computer_multitasking#Cooperative_multitasking">cooperative</a>).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Once a transition is done, it returns the control to the internal scheduler which possibly
+dispatches any pending signal and eventually returns the control to the application, until
+the next <a href="#trigger">trigger</a>(&nbsp;) call.</p>
+</div>
+<div class="paragraph">
+<p>To define the state machine, an agent-script uses the following functions, where
+<em>state</em> is a string denoting an agent&#8217;s state, <em>signame</em> is the name of a <a href="#_signal">signal</a>
+(also a string), and <em>func</em> is a Lua function:</p>
+</div>
+<div id="start_transition" class="ulist">
+<ul>
+<li>
+<p><strong>start_transition</strong>(<em>func</em>)<br>
+<span class="small">Sets <em>func</em> as the agent&#8217;s <em>start transition</em>.<br>
+This function is available only to agents and can be used only at agent startup (not in transitions).</span></p>
+</li>
+</ul>
+</div>
+<div id="transition" class="ulist">
+<ul>
+<li>
+<p><strong>transition</strong>(<em>state</em>, <em>signame</em>, <em>func</em>)<br>
+<span class="small">Sets <em>func</em> as the transition to be executed when
+a <em>signame</em> signal arrives with the agent being in <em>state</em>.<br>
+If <em>signame</em> is the <em>asterisk</em> <a href="#set_special_value">special value</a>, the transition applies
+to any signal name except those for which an explicit transition is set.<br>
+The transition executed when a <em>signame</em> signal arrives with the agent being in <em>state</em>
+is the first found in the following list:<br>
+- the one set with <em>transition(state, signame, func)</em>, if any, or<br>
+- the one set with <em>transition(state, <a href="#set_special_value">asterisk</a>, func)</em>, if any, or<br>
+- the one set with <em>transition(<a href="#default_state">default_state</a>, signame, func)</em>, if any, or<br>
+- the one set with <em>transition(<a href="#default_state">default_state</a>, <a href="#set_special_value">asterisk</a>, func)</em>, if any, or<br>
+- the so-called <em>empty transition</em>, which basically means that the signal is silently discarded.<br>
+This function is available only to agents and should be used only at agent startup (not in transitions).</span></p>
+</li>
+</ul>
+</div>
+<div id="default_state" class="ulist">
+<ul>
+<li>
+<p><strong>default_state</strong>(<em>state</em>)<br>
+<span class="small">Sets <em>state</em> as the agent&#8217;s default state, which defines transitions for signals
+that are not catched with <a href="#transition">transition</a>(&nbsp;) in the state the agent is in
+when they arrive.<br>
+This function is available only to agents and should be used only at agent startup (not in transitions).</span></p>
+</li>
+</ul>
+</div>
+<div id="next_state" class="ulist">
+<ul>
+<li>
+<p><strong>next_state</strong>([<em>state</em>])<br>
+<span class="small">Changes the agent&#8217;s state to <em>state</em>.<br>
+If the state actually changes, i.e. if the agent was not already in that state,
+any input signal previously saved with <a href="#save">save</a>(&nbsp;) is re-scheduled.<br>
+If <em>state</em> is the <em>dash</em> <a href="#set_special_value">special value</a> this function immediately returns
+with no effects.<br>
+This function is available only to agents and should be used only within transitions.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_stopping">Stopping</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An agent terminates by calling the <a href="#stop">stop</a>(&nbsp;) function in a transition.
+This function causes the the agent&#8217;s state machine to stop, and puts the agent
+in a <strong>stopping condition</strong> which preludes its termination. The agent remains in the
+stopping condition until all its children have terminated, then it terminates too.</p>
+</div>
+<div class="paragraph">
+<p>While in the stopping condition, an agent will not receive any input signal because
+its state machine has stopped. It will, however, remain available for
+<a href="#_remote_functions">remote functions</a> calls.</p>
+</div>
+<div class="paragraph">
+<p>If a <em>finalizer</em> function is passed to <a href="#stop">stop</a>(&nbsp;), it is executed (with no
+arguments) right before the agent actually terminates, that is after all his
+children have terminated too.</p>
+</div>
+<div class="paragraph">
+<p>If the stopping agent is the system agent, its termination causes also the termination
+of the SDL system. Note that this happens when the system agent actually terminates,
+i.e. when all its descendants have already terminated (and thus it is the last agent
+left in the system).</p>
+</div>
+<div id="stop" class="ulist">
+<ul>
+<li>
+<p><strong>stop</strong>([<em>finalizer</em>])<br>
+<span class="small">Gracefully stops the agent&#8217;s state machine and causes the termination of the agent itself.<br>
+The optional <em>finalizer</em> parameter is a function to be called when the agent actually terminates.<br>
+This function is available only to agents and should be used only within transitions.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_trigger">Trigger</h2>
+<div class="sectionbody">
+<div id="trigger" class="ulist">
+<ul>
+<li>
+<p><em>n</em> = <strong>trigger</strong>([<em>canblock=false</em>])<br>
+<span class="small">This function is available only to the application, which is expected to
+call it in its event loop to trigger the SDL system.<br>
+It checks for timer expiries, dispatches pending signals causing the destination agents
+to execute the associated transitions, and executes the callback of any monitored <a href="#_sockets">socket</a>
+that is detected to be ready.<br>
+If <em>canblock</em> is <em>true</em> the function is allowed to block, otherwise it returns as soon as possible
+(you usually don&#8217;t want it to block, unless your application only inputs and outputs through
+monitored sockets in which case blocking on <em>socket.select(&nbsp;)</em> can be beneficial).<br>
+Returns the number of scheduled signals that will be dispatched at the next call,
+or <em>nil</em> if the system is not running (i.e. if there are no, or no more, agents alive in the system).</span></p>
+</li>
+</ul>
+</div>
+<div id="reset" class="ulist">
+<ul>
+<li>
+<p><strong>reset</strong>( )<br>
+<span class="small">Resets the SDL system, ungracefully destroying all the agents and their timers.
+<a href="#_optional_configurations">Optional configurations</a> are not reset.<br>
+This function can be called only by the application (not by agents) and should only be used
+on system error.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_signals">Signals</h2>
+<div class="sectionbody">
+<div id="signal_format" class="paragraph">
+<p>SDL signals exchanged between agents, as well as those generated by <a href="#_timers">timers</a>,
+are Lua tables whose first array element (i.e. the element with numeric key=<em>1</em>) is
+a string and denotes the <strong>signal name</strong>. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="lua"><span></span> <span class="tok-n">mysignal</span> <span class="tok-o">=</span> <span class="tok-p">{</span> <span class="tok-s2">&quot;MYSIGNAL&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;hello&quot;</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-n">self_</span><span class="tok-p">,</span> <span class="tok-kc">true</span> <span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here <em>"MYSIGNAL"</em> is the signal name while the other values are content information
+(the example uses only array elements, but the record part of the
+table can also be used).</p>
+</div>
+<div class="paragraph">
+<p>Signals are <strong>sent by reference</strong>, which means that the receiving agent gets a reference
+to the same table that was sent by the sender (not a copy).</p>
+</div>
+<div class="paragraph">
+<p>Besides expecting the signal name as the first array element, MoonAgents makes no
+other assumptions regarding the format and meaning of signals and of their contents: it just
+delivers them between agents.</p>
+</div>
+<div class="paragraph">
+<p>To send signals, agents use the following functions:</p>
+</div>
+<div id="send" class="ulist">
+<ul>
+<li>
+<p><em>now</em> = <strong>send</strong>(<a href="#signal_format"><em>signal</em></a>, <em>dstpid</em>, [<em>priority</em>])<br>
+<span class="small">Sends <em>signal</em> to the agent identified by <em>dstpid</em>, with the specified
+<em>priority</em>, and returns the current <a href="#_system_time">time</a>.<br>
+<em>priority</em> is an integer between <em>1</em> (high) and <em>N</em> (low), where <em>N</em> is the <a href="#set_priority_levels">number of priority levels</a>.<br>
+If <em>priority</em> is not specified, or if it is greater than <em>N</em>, the signal is sent without priority (which means lowest).<br>
+This function is available both to agents and to the application, that can use it to send signals to the system.</span></p>
+</li>
+</ul>
+</div>
+<div id="send_out" class="ulist">
+<ul>
+<li>
+<p><em>now</em> = <strong>send_out</strong>(<a href="#signal_format"><em>signal</em></a>)<br>
+<span class="small">Sends <em>signal</em> out to the application (this is equivalent to <em>send(signal, 0)</em>).<br>
+Signals addressed to the application are sent out immediately (without scheduling) and synchronously.<br>
+To receive signals sent to it, the application must set a non-blocking callback function
+using <a href="#set_receive_callback">set_receive_callback</a>( ).<br>
+This function is available only to agents.</span></p>
+</li>
+</ul>
+</div>
+<div id="time_triggered_signals" class="paragraph">
+<p>Agents and the application can also schedule signals (<strong>time-triggered signals</strong>
+<sup class="footnote">[<a id="_footnoteref_9" class="footnote" href="#_footnote_9" title="View footnote.">9</a>]</sup>) to be
+sent at a point in time in the future, without the need to create timers for this purpose:</p>
+</div>
+<div id="send_at" class="ulist">
+<ul>
+<li>
+<p><strong>send_at</strong>(<a href="#signal_format"><em>signal</em></a>, <em>dstpid</em>, <em>at</em>, [<em>maxdelay</em>])<br>
+<span class="small">A signal sent with this function  is retained in an internal queue and
+dispatched (with maximum priority) to the agent identified by <em>dstpid</em> only when the
+<a href="#_system_time">point in time</a> given by <em>at</em> arrives.
+If, for some reason, the signal can not be delivered before the point in time given by
+<em>at+maxdelay</em>, it is considered stale and silently discarded
+(<em>maxdelay</em> defaults to <em>infinity</em>, i.e. the signal is never considered stale).</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>An agent can impose the priority of input signals by using this function:</p>
+</div>
+<div id="input_priority" class="ulist">
+<ul>
+<li>
+<p><strong>input_priority</strong>(<em>signame</em>, [<em>priority</em>])<br>
+<span class="small">Set or cancel the imposed priority for <em>signame</em> input signals.<br>
+If <em>priority</em> is an integer between <em>1</em> (high) and <em>N</em> (low), where <em>N</em> is the
+<a href="#set_priority_levels">number of priority levels</a>, then any <em>signame</em> signal addressed
+to this agent will be sent with that <em>priority</em>, no matter what specified by the sender.<br>
+If <em>priority=nil</em>, any previously set priority for <em>signame</em> signals is cancelled, and
+the priority specified by the sender applies.<br>
+Signals that are already sent but not yet dispatched at the time this function is called are not affected.
+Signals generated by <a href="#_timers">timers</a>, as well as <a href="#time_triggered_signals">time-triggered signals</a>
+and <a href="#restore">re-scheduled signals</a> are not affected either.<br>
+This function is available only to agents.</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Using the following, an agent can save input signals so to receive them again at its next
+change of state, or when it explicitly decides to:</p>
+</div>
+<div id="save" class="ulist">
+<ul>
+<li>
+<p><strong>save</strong>( )<br>
+<span class="small">Saves the current input signal (i.e. the content of the
+<strong><em>signal_</em></strong> <a href="#_special_variables">special variable</a>) in the agent&#8217;s <em>saved queue</em>, for later
+re-scheduling.<br>
+Saved signals are automatically re-scheduled when the agent <a href="#next_state">changes its state</a>,
+and can be re-scheduled explicitly with <a href="#restore">restore</a>( ).<br>
+This function is available only to agents and should be used only within transitions.</span></p>
+</li>
+</ul>
+</div>
+<div id="restore" class="ulist">
+<ul>
+<li>
+<p><strong>restore</strong>( )<br>
+<span class="small">Re-schedules all the signals currently <a href="#save">saved</a> by the agent.
+A state change has the same effect.<br>
+In both cases, signals are re-scheduled with maximum priority and in the same order they were saved.<br>
+This function is available only to agents and should be used only within transitions.</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To receive signals addressed to <em>pid=0</em>, the application must set a callback function using
+the following:</p>
+</div>
+<div id="set_receive_callback" class="ulist">
+<ul>
+<li>
+<p><strong>set_receive_callback</strong>([<em>callback</em>])<br>
+<span class="small">Sets the passed function as the application&#8217;s receive callback for signals sent to <em>pid=0</em>.<br>
+The callback is executed as <strong><em>callback(signal, sender)</em></strong>, where <em>sender</em> is the <em>pid</em> of
+the agent that sent the <em>signal</em>,
+and it is required to <a href="#dont_hang">return as soon as possible</a> (no blocking calls).
+If <em>callback</em> is <em>nil</em>, any signal sent to the application will be silently discarded (default behavior).<br>
+This function is available only to the application, and can be used at any time.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_system_time">System time</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Agents and the application have access via the <a href="#now">now</a>(&nbsp;) function to a wallclock
+that gives the so-called SDL <strong>system time</strong>. All MoonAgents functions that accept or return a
+timestamp rely on this wallclock.</p>
+</div>
+<div class="paragraph">
+<p>The system time is relative to an unspecified point in the past, that depends on the
+underlying function used to retrieve time from the operating system.</p>
+</div>
+<div id="now" class="ulist">
+<ul>
+<li>
+<p><em>timestamp</em> = <strong>now</strong>( )<br>
+<span class="small">Returns the current system time, in seconds.</span></p>
+</li>
+</ul>
+</div>
+<div id="since" class="ulist">
+<ul>
+<li>
+<p><em>dt</em> = <strong>since</strong>(<em>timestamp</em>)<br>
+<span class="small">Returns the time elapsed from the point in time given by <em>timestamp</em>.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="timers">Timers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Agents can create and manage timers using the functions described below.
+A timer is <em>owned</em> by the agent that created it, and can be managed only by its
+owner or by <a href="#_procedures">procedures</a> that act on the owner&#8217;s behalf.</p>
+</div>
+<div class="paragraph">
+<p>An agent can create timers only before the execution of its start transition, i.e. at the agent&#8217;s startup.
+Timers can not be created in state <a href="#transition">transitions</a> nor within <a href="#procedures">procedures</a>.
+Procedures can, however, use timers owned by their calling agent.</p>
+</div>
+<div class="paragraph">
+<p>When a timer expires, a <a href="#signals">signal</a> containing only the associated <em>signame</em>
+is sent to the owner agent, or to the procedure that is acting on its behalf, if any.
+The signal is subject to queuing delays in the internal signal scheduler, as any other signal.</p>
+</div>
+<div id="timer" class="ulist">
+<ul>
+<li>
+<p><em>tid</em> = <strong>timer</strong>(<em>duration</em>, <em>signame</em>)<br>
+<span class="small">Creates an SDL timer and returns a unique <strong>timer identifier (tid)</strong>.<br>
+<em>duration</em>: the timer&#8217;s default timeout (seconds),<br>
+<em>signame</em>: the name (a string) of the signal that will be sent to the owner agent when the timer expires.<br>
+This function is available only to agents, which can create timers only at startup (not within transitions).</span></p>
+</li>
+</ul>
+</div>
+<div id="timer_modify" class="ulist">
+<ul>
+<li>
+<p><strong>timer_modify</strong>(<em>tid</em>, [<em>duration</em>], [<em>signame</em>])<br>
+<span class="small">Modifies the default duration and/or the signal name of the timer identified by <em>tid</em>.<br>
+If the timer is running, this function stops it.<br>
+<em>duration</em> and <em>signame</em>: same as for the <a href="#timer"><em>timer</em></a>( ) function (pass <em>nil</em> to preserve the old value).</span></p>
+</li>
+</ul>
+</div>
+<div id="timer_start" class="ulist">
+<ul>
+<li>
+<p><em>at</em> = <strong>timer_start</strong>(<em>tid</em>, [<em>at</em>])<br>
+<span class="small">Starts the timer identified by <em>tid</em> so to expire at the <a href="#_system_time">point in time</a>
+given by <em>at</em> (defaults to <a href="#now"><em>now</em></a>+<em>duration</em>).</span></p>
+</li>
+</ul>
+</div>
+<div id="timer_stop" class="ulist">
+<ul>
+<li>
+<p><em>now</em> = <strong>timer_stop</strong>(<em>tid</em>)<br>
+<span class="small">Stops the timer identified by <em>tid</em>.<br>
+If the timer is not running, this function has no effects and generates no errors.<br>
+Note that a timer is regarded as 'running' from when it is started until the owner agent
+receives the associated signal. As a consequence, if the timer is stopped after its expiry
+but before the signal is received, the signal is discarded by the internal signal scheduler.</span></p>
+</li>
+</ul>
+</div>
+<div id="timer_running" class="ulist">
+<ul>
+<li>
+<p><em>isrunning</em>, <em>at</em> = <strong>timer_running</strong>(<em>tid</em>)<br>
+<span class="small">Returns a boolean indicating whether the timer identified by <em>tid</em> is running or not, and
+the <a href="#_system_time">point in time</a> at which the timer is expected to expire (or
+<a href="http://www.lua.org/manual/5.3/manual.html#pdf-math.huge"><em>math.huge</em></a>, if the timer is not running).</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_procedures">Procedures</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>SDL procedures</strong> are sub-parts of state machines, that can be reused in
+different agent-scripts.</p>
+</div>
+<div class="paragraph">
+<p>An SDL procedure in MoonAgents is as a special kind of agent,
+created with <a href="#procedure">procedure</a>(&nbsp;), that <strong>replaces its
+caller agent</strong> from when it is called until it returns.</p>
+</div>
+<div class="paragraph">
+<p>More precisely, a procedure replaces its caller
+<em>as destination and source of signals</em>. This means that all the signals addressed
+to the caller are redirected to the procedure, which may consume them
+or <a href="#save">save</a> them, and all the signals sent by the procedure are sent on behalf
+of the caller (i.e. with the caller&#8217;s pid as <em>sender</em>).</p>
+</div>
+<div class="paragraph">
+<p>When a procedure returns, all the signal it <a href="#save">saved</a> are automatically moved
+in its caller&#8217;s <em>saved queue</em> and the normal addressing of signals is re-established
+(so the restored signals will be dispatched to the caller).</p>
+</div>
+<div id="original_caller" class="paragraph">
+<p>Procedures can be <strong>nested</strong>, which means that a procedure may call another procedure
+and be replaced by it (note that each agent or procedure can directly execute only
+one procedure at a time, though, being replaced by it). Nested procedures all act on
+behalf of their <strong>original caller</strong>, which is the first ancestor in their lineage
+that is not a procedure, and whose pid they find in
+the <strong><em>caller_</em></strong> <a href="#_special_variables">special variable</a>.</p>
+</div>
+<div class="paragraph">
+<p>State machines for procedures are defined in scripts similar to regular
+<a href="#_agent_scripts">agent-scripts</a>, using the same functions except for
+<a href="#stop">stop</a>(&nbsp;): to terminate, procedure scripts shall instead use
+<a href="#procedure_return">procedure_return</a>(&nbsp;).</p>
+</div>
+<div class="paragraph">
+<p>Another difference with regular agents is that procedures can not create <a href="#timers">timers</a>.
+They can use timers owned by the agent they act on behalf of, though.</p>
+</div>
+<div id="procedure" class="ulist">
+<ul>
+<li>
+<p><em>pid</em> = <strong>procedure</strong>([<em>atreturn</em>], [<em>name</em>], <em>script</em>, <em>&#8230;&#8203;</em> )<br>
+<span class="small">Executes (i.e. creates) an SDL procedure as described above.<br>
+The <em>name</em>, <em>script</em> and <em>&#8230;&#8203;</em> parameters have the same meanings as in the functions that
+<a href="#_creating_agents">create regular agents</a>, with the difference that if <em>name=nil</em>,
+the name defaults to <em>"procedure&lt;pid&gt;"</em> instead of <em>"agent&lt;pid&gt;"</em>.<br>
+The <em>atreturn</em> parameter can be optionally used to define actions to be executed in the
+caller agent&#8217;s <a href="#dedicated_env">_ENV</a> when the procedure returns, which it does by calling
+<em><a href="#procedure_return">procedure_return</a>(returnvalues)</em>:<br>
+- if <em>atreturn</em> is a function, it is executed as <em>atreturn(returnvalues)</em>,<br>
+- if <em>atreturn</em> is a string (denoting a state name), then <em><a href="#next_state">next_state</a>(atreturn)</em> is executed,<br>
+- if <em>atreturn</em> is <em>nil</em>, then no actions are executed at return.<br>
+This function is available only to agents (including procedures), and must be used within transitions.</span></p>
+</li>
+</ul>
+</div>
+<div id="procedure_return" class="ulist">
+<ul>
+<li>
+<p><strong>procedure_return</strong>(<em>&#8230;&#8203;</em>)<br>
+<span class="small">Returns from a procedure. This function is to be used in the procedure script
+instead of <a href="#stop">stop</a>(&nbsp;), to terminate the procedure and possibly
+return values to the caller agent.<br>
+The arguments passed to this function (if any) are in turn passed to the <em>atreturn</em>
+function set by the caller when the procedure was created. No script code should follow a
+call to this function in the transition it is in: any action to be performed when the
+procedure returns shall be instead coded in the <em>atreturn</em> argument passed to
+<a href="#procedure">procedure</a>(&nbsp;).</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_remote_functions">Remote functions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Remote functions</strong> are Lua functions defined in the <a href="#dedicated_env">_ENV</a> of an
+agent (the <em>exporting agent</em>) and exported so that they can be synchronously invoked
+by another agent (the <em>invoking agent</em>).
+<sup class="footnote">[<a id="_footnoteref_10" class="footnote" href="#_footnote_10" title="View footnote.">10</a>]</sup></p>
+</div>
+<div class="paragraph">
+<p>When the invoking agent calls a remote function, MoonAgents immediately switches to
+the exporting agent&#8217;s <a href="#dedicated_env">_ENV</a>, executes the function there, and then switches back
+to the invoking agent&#8217;s <a href="#dedicated_env">_ENV</a> returning it any value returned by the function.
+(That is, the remote function is executed <strong>synchronously and immediately</strong>.)</p>
+</div>
+<div class="paragraph">
+<p>This mechanism relies on the following two functions:</p>
+</div>
+<div id="export_function" class="ulist">
+<ul>
+<li>
+<p><strong>export_function</strong>(<em>funcname</em>, [<em>func</em>])<br>
+<span class="small">Exports the function <em>func</em> with the name <em>funcname</em> (a string), so that it can be invoked
+by other agents using <a href="#remote_call">remote_call</a>(&nbsp;).<br>
+If <em>func</em> is nil, the function exported with the name <em>funcname</em> is revoked.<br>
+Since the exported function is intended to be executed from other agents and usually
+within transitions, it is required to <a href="#dont_hang">return as soon as possible</a>.</span></p>
+</li>
+</ul>
+</div>
+<div id="remote_call" class="ulist">
+<ul>
+<li>
+<p><em>&#8230;&#8203;</em> = <strong>remote_call</strong>(<em>pid</em>, <em>funcname</em>, <em>&#8230;&#8203;</em>)<br>
+<span class="small">Executes the function <a href="#export_function">exported</a> with the name <em>funcname</em> by
+the agent identified by <em>pid</em>, in its  <a href="#dedicated_env">_ENV</a>.<br>
+The <em>&#8230;&#8203;</em> variable arguments, if any, are passed as arguments to the remote function.<br>
+Returns the values returned by the remote function, if any.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sockets">Sockets</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This functionality requires <a href="https://github.com/diegonehab/luasocket">LuaSocket</a>.</p>
+</div>
+<div id="socket_add" class="ulist">
+<ul>
+<li>
+<p><strong>socket_add</strong>(<em>socket</em>, <em>mode</em>, <em>callback</em>)<br>
+<span class="small">Adds <em>socket</em> (created with <a href="https://github.com/diegonehab/luasocket">LuaSocket</a>, or a compatible object) to the list of sockets monitored for reading (<em>mode='r'</em>) or for writing (<em>mode='w'</em>).<br>
+The <em>callback</em> is a function that is executed - immediately and synchronously - in the
+dedicated <a href="#dedicated_env">_ENV</a> of the agent that called this function, whenever the
+socket is detected to be ready within a <a href="#trigger">trigger</a>(&nbsp;) call.
+It is executed as <strong><em>callback(socket)</em></strong>  and must <a href="#dont_hang">not block</a>.<br>
+The <em>socket</em> is forced by MoonAgents to be non-blocking (<em>socket:settimeout(0)</em>, see the LuaSocket documentation for more details).<br>
+To monitor a socket for both reading and writiting, add (and remove) it twice,
+i.e. independently once per mode.</span></p>
+</li>
+</ul>
+</div>
+<div id="socket_remove" class="ulist">
+<ul>
+<li>
+<p><strong>socket_remove</strong>(<em>socket</em>, <em>mode</em>)<br>
+<span class="small">Removes <em>socket</em> from the  list of sockets monitored for reading (<em>mode='r</em>') or for
+writing (<em>mode='w</em>').</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_agent_information">Agent information</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The functions described below provide information about SDL agents and help
+agents in locating each other.</p>
+</div>
+<div class="paragraph">
+<p>All functions raise an error on failure.</p>
+</div>
+<div id="pid_of" class="ulist">
+<ul>
+<li>
+<p><em>pid</em> = <strong>pid_of</strong>(<em>name</em>, [<em>rpid=0</em>])<br>
+<span class="small">Returns the pid corresponding to the given <a href="#agent_name"><em>name</em></a>,
+relative to the agent identified by <em>rpid</em>.<br>
+To get the pid of an agent from its full name, pass <em>rpid=0</em> (which is the default).<br>
+To get the pid of a sibling agent from its local name, pass <em>rpid=parent_</em>.</span></p>
+</li>
+</ul>
+</div>
+<div id="name_of" class="ulist">
+<ul>
+<li>
+<p><em>name</em> = <strong>name_of</strong>(<em>pid</em>, [<em>rpid=0</em>])<br>
+<span class="small">Returns the <a href="#agent_name"><em>name</em></a>, relative to <em>rpid</em>, of the agent identified by <em>pid</em>.
+(by default <em>rpid=0</em> so the full name is returned).</span></p>
+</li>
+</ul>
+</div>
+<div id="parent_of" class="ulist">
+<ul>
+<li>
+<p><em>ppid</em> = <strong>parent_of</strong> (<em>pid</em>)<br>
+<span class="small">Returns the pid of the <a href="#agent_hierarchy">parent</a> of the agent identified by <em>pid</em>.</span></p>
+</li>
+</ul>
+</div>
+<div id="state_of" class="ulist">
+<ul>
+<li>
+<p><em>state</em> = <strong>state_of</strong>(<em>pid</em>)<br>
+<span class="small">Returns the current state (a string) of the agent identified by <em>pid</em>.</span></p>
+</li>
+</ul>
+</div>
+<div id="children_of" class="ulist">
+<ul>
+<li>
+<p>{<em>pid</em>} = <strong>children_of</strong>(<em>pid</em>)<br>
+<span class="small">Returns the list of pids of the <a href="#agent_hierarchy">children</a> created by the agent identified by <em>pid</em>.</span></p>
+</li>
+</ul>
+</div>
+<div id="timers_of" class="ulist">
+<ul>
+<li>
+<p>{<em>tid</em>} = <strong>timers_of</strong>(<em>pid</em>)<br>
+<span class="small">Returns the list of identifiers (tid) of the <a href="#timers">timers</a> owned by the agent identified by <em>pid</em>.</span></p>
+</li>
+</ul>
+</div>
+<div id="tree_of" class="ulist">
+<ul>
+<li>
+<p><em>string</em> = <strong>tree_of</strong>(<em>pid</em>)<br>
+<span class="small">Returns a string containing a description of the <a href="#agent_hierarchy">sub-tree of agents</a>
+rooted at the agent identified by <em>pid</em>.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_logs_and_traces">Logs and Traces</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A MoonAgents application can open a <strong>system logfile</strong> and use the functions described
+here to write on it. The system logfile is used by MoonAgents as destination both
+for regular <a href="#log_enable">logs</a> and for internal <a href="#trace_enable">traces</a>.</p>
+</div>
+<div id="log_open" class="ulist">
+<ul>
+<li>
+<p><em>filehandle</em> = <strong>log_open</strong>(<em>filename</em>)<br>
+<span class="small">Opens the file named <em>filename</em> to be used as system logfile, and enables logs.<br>
+The file is opened in write mode, using the standard Lua
+<a href="http://www.lua.org/manual/5.3/manual.html#pdf-io.open">io.open</a>.<br>
+If the system logfile is already open, it is closed and re-opened.<br>
+Any previously existing file with the same name is overwritten.</span></p>
+</li>
+</ul>
+</div>
+<div id="log_file" class="ulist">
+<ul>
+<li>
+<p><em>filehandle</em>, <em>filename</em> = <strong>log_file</strong>( )<br>
+<span class="small">Returns the file handle and the file name of the system logfile (if it is open, otherwise
+it returns <em>nil</em> and an error message).</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the system logfile is not open, or if it is disabled, calls of the functions
+below are silently ignored and raise no errors.</p>
+</div>
+<div id="log_enable" class="ulist">
+<ul>
+<li>
+<p><strong>log_enable</strong>(<em>onoff</em>)<br>
+<span class="small">Enable/disable logs on the system logfile, depending on the boolean value <em>onoff</em>.<br>
+Logs are enabled by default at the opening of the system logfile.</span></p>
+</li>
+</ul>
+</div>
+<div id="trace_enable" class="ulist">
+<ul>
+<li>
+<p><strong>trace_enable</strong>(<em>onoff</em>)<br>
+<span class="small">Enable/disable traces on the system logfile, depending on the boolean value <em>onoff</em>.<br>
+Traces are produced internally by the MoonAgents engine to log relevant events such as the
+creation of agents, state changes, the delivery and reception of signals, timer events, and so on.
+They are intended mainly for troubleshooting, time consuming, and disabled by default.<br>
+If the logfile is not open, this function has no effects.</span></p>
+</li>
+</ul>
+</div>
+<div id="log_flush" class="ulist">
+<ul>
+<li>
+<p><strong>log_flush</strong>( )<br>
+<span class="small">Flushes the system logfile.<br>
+MoonAgents automatically flushes it only at its closure or when the system agent stops.</span></p>
+</li>
+</ul>
+</div>
+<div id="log_close" class="ulist">
+<ul>
+<li>
+<p><strong>log_close</strong>( )<br>
+<span class="small">Flushes and closes the system logfile.</span></p>
+</li>
+</ul>
+</div>
+<div id="log" class="ulist">
+<ul>
+<li>
+<p><strong>log</strong>(<em>formatstring</em>, <em>&#8230;&#8203;</em>)<br>
+<span class="small">Formats its arguments using the standard Lua
+<a href="http://www.lua.org/manual/5.3/manual.html#pdf-string.format"><em>string.format</em></a>,
+and writes the resulting message to the system logfile, prepending it with a
+<a href="#_system_time">timestamp</a> and the pid of the current SDL agent.</span></p>
+</li>
+</ul>
+</div>
+<div id="log_print" class="ulist">
+<ul>
+<li>
+<p><strong>log_print</strong>(<em>formatstring</em>, <em>&#8230;&#8203;</em>)<br>
+<span class="small">Similar to <a href="#log">log</a>(&nbsp;), it additionally writes the message also on <em>stdout</em>
+(but without the timestamp and the preamble).
+If the system logfile is not open or if logs are disabled, it writes on <em>stdout</em> only.</span></p>
+</li>
+</ul>
+</div>
+<div id="set_log_preamble" class="ulist">
+<ul>
+<li>
+<p><strong>set_log_preamble</strong>([<em>func</em>])<br>
+<span class="small">Override the default log preamble function with the passed <em>func</em> (a function).<br>
+The preamble function is called by <a href="#log">log</a>(&nbsp;) and is expected to return a string
+to prepend to the log output. If <em>func</em> is <em>nil</em>, nothing is prepended.<br>
+The default preamble is the <a href="#_system_time">system time</a> followed by the pid of the current
+agent between square brackets (e.g. <em>'184445.048954&nbsp;[8]&nbsp;'</em> is the preamble of a
+log produced by the agent with <em>pid=8</em> at time <em>184445.048954</em>).</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_text_style_control">Text style control</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The functions described here provide agents and the application with means to
+control the style of text output (stdout) on terminals that support
+<a href="https://en.wikipedia.org/wiki/ANSI_escape_code#Colors">ANSI escape sequences</a>.
+For quick and dirty text-based applications.</p>
+</div>
+<div id="text_style_enable" class="ulist">
+<ul>
+<li>
+<p><strong>text_style_enable</strong>(<em>onoff</em>)<br>
+<span class="small">Enables/disables the text style control capability, depending on the boolean
+value <em>onoff</em>.<br>
+If the capability is disabled (default), any call of the <a href="#set_text_style">set_text_style</a>(&nbsp;) function does nothing.<br>
+This function is available only to the application, while the other ones are available
+also to agents.</span></p>
+</li>
+</ul>
+</div>
+<div id="set_text_style" class="ulist">
+<ul>
+<li>
+<p><strong>set_text_style</strong>([<em>{color, mode, bgcolor}</em>])<br>
+<span class="small">Sets the text style, or resets it to the terminal&#8217;s default if the argument is <em>nil</em> or missing.<br>
+<strong>color</strong>: <em>nil</em> (to preserve current), or one among '<em>black</em>', '<em>red</em>', '<em>green</em>', '<em>yellow</em>', '<em>blue</em>', '<em>magenta</em>', '<em>cyan</em>', '<em>white</em>', '<em>bright black</em>', '<em>bright red</em>', '<em>bright green</em>', '<em>bright yellow</em>', '<em>bright blue</em>', '<em>bright magenta</em>', '<em>bright cyan</em>', '<em>bright white</em>'.<br>
+<strong>mode</strong>: <em>nil</em> (to preserve current), or one among '<em>normal</em>', '<em>bold</em>', '<em>faint</em>', '<em>italic</em>', '<em>underline</em>', '<em>blink</em>', '<em>inverted</em>',<br>
+<strong>bgcolor</strong>: same values as <strong>color</strong>, but controls the background color.</span></p>
+</li>
+</ul>
+</div>
+<div id="style_write" class="ulist">
+<ul>
+<li>
+<p><strong>style_write</strong>([<em>{color, mode, bgcolor}</em>], <em>&#8230;&#8203;</em>)<br>
+<span class="small">Writes on stdout with the specified style.<br>
+Equivalent to <em>"set_text_style({color, mode, bgcolor}); io.write(&#8230;&#8203;); set_text_style(nil)"</em>.</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_optional_configurations">Optional configurations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The functions below allow to optionally configure some aspects of MoonAgents.
+They can be used only when the system is not running, i.e. before the creation
+of the <a href="#create_system">system agent</a> or after this has terminated.</p>
+</div>
+<div id="set_env_template" class="ulist">
+<ul>
+<li>
+<p><strong>set_env_template</strong>(<em>env</em>)<br>
+<span class="small">Sets the template for the Lua environments dedicated to agents (e.g. for sandboxing).<br>
+By default, the template environment is a shallow copy of the main environment (<em>_ENV</em>)
+as it is when <a href="#create_system">create_system</a>(&nbsp;) is called.<br>
+Note that the <strong>moonagents</strong> global table containing the functions described in this manual
+is automatically loaded in each agent&#8217;s dedicated environment, so it need not be added
+to the template environment (and it need not be loaded explicitly in agent-scripts either).</span></p>
+</li>
+</ul>
+</div>
+<div id="set_priority_levels" class="ulist">
+<ul>
+<li>
+<p><strong>set_priority_levels</strong>([<em>nlevels</em>])<br>
+<span class="small">Sets the number of priority levels to be used in the MoonAgents scheduler
+for <a href="#send">priority signals</a>.<br>
+<em>nlevels</em>: an integer between <em>1</em> and <em>16</em> (inclusive), or <em>nil</em> to restore the default.<br>
+(The default is <em>1</em>, i.e. there is one level of priority plus the no-priority level, or 'normal' level).</span></p>
+</li>
+</ul>
+</div>
+<div id="set_special_value" class="ulist">
+<ul>
+<li>
+<p><strong>set_special_value</strong>(<em>name</em>, <em>value</em>)<br>
+<span class="small">Set the string <em>value</em> as the value reserved for <em>name</em>, which may be one of the following:<br>
+'<em>startup</em>': denotes the initial state an agent is in at startup. Defaults to <em>'?'</em> (a question mark).<br>
+'<em>dash</em>': denotes the 'dash nextstate'. Defaults to <em>'-'</em> (a dash).<br>
+'<em>asterisk</em>': denotes the 'asterisk input'. Defaults to <em>'*'</em> (an asterisk).</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_special_variables">Special variables</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+In MoonAgents, <strong>identifiers</strong> composed of <em>one or more lower-case letters
+and ending with an underscore</em> (e.g., <em>self_</em>) are <strong>reserved</strong> for special variables.
+Agent-scripts code <strong>must not</strong> set or change variables with such identifiers.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <strong>special variables</strong> listed below are set in each agent&#8217;s <a href="#dedicated_env">_ENV</a>,
+when relevant:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><em>self_</em></strong>: the <a href="#pid">pid</a> of the agent itself.</p>
+</li>
+<li>
+<p><strong><em>name_</em></strong>: the <a href="#agent_name">name</a> of the agent.</p>
+</li>
+<li>
+<p><strong><em>parent_</em></strong>: the pid of the <a href="#agent_hierarchy">parent</a> agent.</p>
+</li>
+<li>
+<p><strong><em>offspring_</em></strong>: the pid of the last child agent created by this one (or <em>nil</em> if none).</p>
+</li>
+<li>
+<p><strong><em>caller_</em></strong>: the pid of the original caller if the agent is a <a href="#_procedures">procedure</a> (or <em>nil</em>
+if it is not).</p>
+</li>
+<li>
+<p><strong><em>state_</em></strong>: the agent&#8217;s current <a href="#_agent_scripts">state</a> (or <em>nil</em> if the agent is stopping).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In addition, the following special variables are set before any transition is executed:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><em>signal_</em></strong>: the  <a href="#_signals">signal</a> that triggered the current transition.</p>
+</li>
+<li>
+<p><strong><em>signame_</em></strong>: the signal name (same as <em>signal_[1]</em>).</p>
+</li>
+<li>
+<p><strong><em>istimer_</em></strong>: <em>true</em> if the signal was generated by a <a href="#_timers">timer</a>.</p>
+</li>
+<li>
+<p><strong><em>sender_</em></strong>: the sender of the signal (pid, or tid if the signal was generated by a timer).</p>
+</li>
+<li>
+<p><strong><em>sendtime_</em></strong>: the <a href="#_system_time">point in time</a> when the signal was sent.<sup class="footnote">[<a id="_footnoteref_11" class="footnote" href="#_footnote_11" title="View footnote.">11</a>]</sup></p>
+</li>
+<li>
+<p><strong><em>recvtime_</em></strong>: the point in time when the signal was received.</p>
+</li>
+<li>
+<p><strong><em>exptime_</em></strong>: the point in time when the signal becomes stale.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>All special variables are to be considered <strong>read-only</strong>. Care should be taken not
+to change their values from agent-script code.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. This manual is written in <a href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a>, rendered with <a href="http://asciidoctor.org/">AsciiDoctor</a> and a CSS from the <a href="https://github.com/asciidoctor/asciidoctor-stylesheet-factory">AsciiDoctor Stylesheet Factory</a>.
+</div>
+<div class="footnote" id="_footnote_2">
+<a href="#_footnoteref_2">2</a>. The <strong>SDL specifications</strong> are freely available on the <a href="http://www.itu.int/rec/T-REC-Z/en">ITU site</a>. Introductive papers to SDL, a bit outdated but still very good, can be found in the <a href="http://www.telenor.com/innovation/telektronikk/archive">Telektronikk journal</a>, <em>Volume 4.2000 "Languages for Telecommunication Applications"</em>, Ed: Rolv Bræk.)
+</div>
+<div class="footnote" id="_footnote_3">
+<a href="#_footnoteref_3">3</a>. MoonAgents is not an implementation of the SDL specifications, just inspired by them. It deviates from standard SDL in (at least) the following: it uses an all-to-all pid-based communication model, with a single signal queue instead of per-agent input queues (although one could argue that the per-agent queues ar just merged but still distinguishable by the destination pid); it makes no distinction between <em>block</em> and <em>process</em> agents; it has no explicit definitions of channels and gates; it allows any agent (not only the system agent) to communicate with the SDL environment; it uses Lua data types and has no built-in support for ADT and ASN.1; it has additional non-SDL constructs like priority outputs, time-triggered signals and remote synchronous functions with immediate return.
+</div>
+<div class="footnote" id="_footnote_4">
+<a href="#_footnoteref_4">4</a>. For comparison, the <code>examples/web-download</code> directory contains the same example (from the PIL book) implemented both with coroutines and with MoonAgents. With respect to Lua&#8217;s native coroutines, MoonAgents provides built-in constructs to define state machines using a well established formalism (SDL), to make them communicate via asynchronous signals, timers and some other facilities. All this at the price of some overhead, so if your application doesn&#8217;t need these things then coroutines are a better alternative.
+</div>
+<div class="footnote" id="_footnote_5">
+<a href="#_footnoteref_5">5</a>. The term <strong><em>'environment'</em></strong> is used in SDL to denote the outer world with respect to an SDL system. To avoid confusion with the concept of <em>'Lua environment'</em>  we will refer to the latter as _ENV and to the former as <em>'the SDL environment'</em> (or simply as <em>'the application'</em>, since agents inevitably communicate with the outer world via the application).
+</div>
+<div class="footnote" id="_footnote_6">
+<a href="#_footnoteref_6">6</a>. Standard SDL makes also a distinction between <em>block</em> agents, which are containers of agents, and <em>process</em> agents, which are not. MoonAgents makes no such distinction, and any agent may be (also) a container, if the system designer wants so.
+</div>
+<div class="footnote" id="_footnote_7">
+<a href="#_footnoteref_7">7</a>. <a href="#procedures">Procedures</a> and the application itself are not really agents, but to some extent are regarded as such beause they take part in the signal-based communication, where pids are used as addresses.
+</div>
+<div class="footnote" id="_footnote_8">
+<a href="#_footnoteref_8">8</a>. The <a href="#_special_variables">special variables</a> are those prescribed by the SDL specifications, with a few additions.
+</div>
+<div class="footnote" id="_footnote_9">
+<a href="#_footnoteref_9">9</a>. The <strong>time-triggered signal</strong> construct is not part of the SDL standard. It is inspired by a proposal contained in the paper &#8220;Real-time signaling in SDL&#8221;, by M. Krämer, T. Braun, D. Christmann and R. Gotzhein, published in <em>SDL'11 Proceedings of the 15th international conference on Integrating System and Software Modeling</em>, Springer-Verlag, 2011.
+</div>
+<div class="footnote" id="_footnote_10">
+<a href="#_footnoteref_10">10</a>. Remote functions are not an SDL construct. They are not to be confused with SDL <em>remote procedures</em> (see ITU-T Z.102/10.5) that have a different mechanism involving exchange of signals. These are not supported by MoonAgents (at least not directly)
+</div>
+<div class="footnote" id="_footnote_11">
+<a href="#_footnoteref_11">11</a>. The <strong><em>sendtime_</em></strong> timestamp refers to the time when the signal was inserted in the internal scheduler for dispatching: if the signal was sent with <a href="#send">send</a>(&nbsp;), this is when the function was called; for <a href="#timers">timer-generated signals</a>, it is the point in time the timer expiry was detected; for <a href="#time_triggered_signals">time-triggered signals</a> it is the point in time the signal was actually sent after its time ('<em>at</em>') had come.
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 0.1<br>
+Last updated 2019-01-15 09:55:43 CET
+</div>
+</div>
+</body>
+</html>

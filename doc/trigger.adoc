@@ -1,0 +1,24 @@
+
+
+== Trigger
+
+[[trigger]]
+* _n_ = *trigger*([_canblock=false_]) +
+[small]#This function is available only to the application, which is expected to
+call it in its event loop to trigger the SDL system. +
+It checks for timer expiries, dispatches pending signals causing the destination agents
+to execute the associated transitions, and executes the callback of any monitored <<_sockets, socket>>
+that is detected to be ready. +
+If _canblock_ is _true_ the function is allowed to block, otherwise it returns as soon as possible
+(you usually don't want it to block, unless your application only inputs and outputs through
+monitored sockets in which case blocking on _socket.select(&nbsp;)_ can be beneficial). +
+Returns the number of scheduled signals that will be dispatched at the next call,
+or _nil_ if the system is not running (i.e. if there are no, or no more, agents alive in the system).#
+
+[[reset]]
+* *reset*( ) +
+[small]#Resets the SDL system, ungracefully destroying all the agents and their timers. 
+<<_optional_configurations, Optional configurations>> are not reset. +
+This function can be called only by the application (not by agents) and should only be used
+on system error.#
+

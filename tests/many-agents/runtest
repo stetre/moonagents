@@ -1,0 +1,2 @@
+#            ntests   repetitions
+lua main.lua 1000     10

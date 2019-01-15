@@ -1,0 +1,28 @@
+
+== Text style control
+
+The functions described here provide agents and the application with means to
+control the style of text output (stdout) on terminals that support 
+https://en.wikipedia.org/wiki/ANSI_escape_code#Colors[ANSI escape sequences].
+For quick and dirty text-based applications.
+
+[[text_style_enable]]
+* *text_style_enable*(_onoff_) +
+[small]#Enables/disables the text style control capability, depending on the boolean
+value _onoff_. +
+If the capability is disabled (default), any call of the <<set_text_style, set_text_style>>(&nbsp;) function does nothing. +
+This function is available only to the application, while the other ones are available
+also to agents.#
+
+[[set_text_style]]
+* *set_text_style*([_{color, mode, bgcolor}_]) +
+[small]#Sets the text style, or resets it to the terminal's default if the argument is _nil_ or missing. +
+*color*: _nil_ (to preserve current), or one among '_black_', '_red_', '_green_', '_yellow_', '_blue_', '_magenta_', '_cyan_', '_white_', '_bright black_', '_bright red_', '_bright green_', '_bright yellow_', '_bright blue_', '_bright magenta_', '_bright cyan_', '_bright white_'. +
+*mode*: _nil_ (to preserve current), or one among '_normal_', '_bold_', '_faint_', '_italic_', '_underline_', '_blink_', '_inverted_', +
+*bgcolor*: same values as *color*, but controls the background color.#
+
+[[style_write]]
+* *style_write*([_{color, mode, bgcolor}_], _..._) +
+[small]#Writes on stdout with the specified style. +
+Equivalent to _"set_text_style({color, mode, bgcolor}); io.write(...); set_text_style(nil)"_.#
+

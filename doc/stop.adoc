@@ -1,0 +1,27 @@
+
+== Stopping
+
+An agent terminates by calling the <<stop, stop>>(&nbsp;) function in a transition.
+This function causes the the agent's state machine to stop, and puts the agent
+in a *stopping condition* which preludes its termination. The agent remains in the
+stopping condition until all its children have terminated, then it terminates too.
+
+While in the stopping condition, an agent will not receive any input signal because
+its state machine has stopped. It will, however, remain available for 
+<<_remote_functions, remote functions>> calls.
+
+If a _finalizer_ function is passed to <<stop, stop>>(&nbsp;), it is executed (with no
+arguments) right before the agent actually terminates, that is after all his
+children have terminated too.
+
+If the stopping agent is the system agent, its termination causes also the termination
+of the SDL system. Note that this happens when the system agent actually terminates,
+i.e. when all its descendants have already terminated (and thus it is the last agent
+left in the system).
+
+[[stop]]
+* *stop*([_finalizer_]) +
+[small]#Gracefully stops the agent's state machine and causes the termination of the agent itself. +
+The optional _finalizer_ parameter is a function to be called when the agent actually terminates. +
+This function is available only to agents and should be used only within transitions.#
+

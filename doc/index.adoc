@@ -1,0 +1,38 @@
+= MoonAgents Reference Manual
+Stefano Trettel
+v0.1, 2019-01-15
+:toc: left
+:toclevels: 3
+:stylesdir: ./
+:stylesheet: colony.css
+:source-highlighter: pygments
+:pygments-style: autumn
+:source-language: lua
+:exampledir: ../examples
+
+image::powered-by-lua.gif[Lua logo, link=http://www.lua.org]
+
+// Macros for trees: {tS} = "   ", {tI} = "│  ", {tH} = "├─ ", {tL} = "└─ "
+:tS: &#8192;&#8192;&#8192;&#8192;
+:tI: &#9474;&#8192;&#8192;&#8192;
+:tH: &#9500;&#9472;&#8192;
+:tL: &#9492;&#9472;&#8192;
+
+include::preface.adoc[]
+include::overview.adoc[]
+include::agent.adoc[]
+include::create.adoc[]
+include::fsm.adoc[]
+include::stop.adoc[]
+include::trigger.adoc[]
+include::signals.adoc[]
+include::timers.adoc[]
+include::procedures.adoc[]
+include::remfunc.adoc[]
+include::sockets.adoc[]
+include::info.adoc[]
+include::logs.adoc[]
+include::textstyle.adoc[]
+include::configure.adoc[]
+include::special.adoc[]
+

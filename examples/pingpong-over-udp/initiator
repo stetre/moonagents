@@ -1,0 +1,3 @@
+# Initiator shell script
+export MOONAGENTS_PATH="../?.lua;;"
+lua main.lua 8090 10 1 # responder_port duration ping_interval

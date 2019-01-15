@@ -1,0 +1,2 @@
+#            maxlevels 
+lua main.lua 10

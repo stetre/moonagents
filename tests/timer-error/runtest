@@ -1,0 +1,2 @@
+#            maxduration ntests   repetitions
+lua main.lua    2         1000     10

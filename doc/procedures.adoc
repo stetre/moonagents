@@ -1,0 +1,61 @@
+
+== Procedures
+
+*SDL procedures* are sub-parts of state machines, that can be reused in
+different agent-scripts.
+
+An SDL procedure in MoonAgents is as a special kind of agent,
+created with <<procedure,procedure>>(&nbsp;), that *replaces its
+caller agent* from when it is called until it returns.
+
+More precisely, a procedure replaces its caller
+_as destination and source of signals_. This means that all the signals addressed
+to the caller are redirected to the procedure, which may consume them
+or <<save, save>> them, and all the signals sent by the procedure are sent on behalf
+of the caller (i.e. with the caller's pid as _sender_).
+
+When a procedure returns, all the signal it <<save, saved>> are automatically moved
+in its caller's _saved queue_ and the normal addressing of signals is re-established
+(so the restored signals will be dispatched to the caller).
+
+[[original_caller]]
+Procedures can be *nested*, which means that a procedure may call another procedure
+and be replaced by it (note that each agent or procedure can directly execute only
+one procedure at a time, though, being replaced by it). Nested procedures all act on
+behalf of their *original caller*, which is the first ancestor in their lineage
+that is not a procedure, and whose pid they find in
+the *_$$caller_$$_* <<_special_variables, special variable>>.
+
+State machines for procedures are defined in scripts similar to regular
+<<_agent_scripts, agent-scripts>>, using the same functions except for
+<<stop,stop>>(&nbsp;): to terminate, procedure scripts shall instead use
+<<procedure_return, procedure_return>>(&nbsp;).
+
+Another difference with regular agents is that procedures can not create <<timers, timers>>. 
+They can use timers owned by the agent they act on behalf of, though.
+
+[[procedure]]
+* _pid_ = *procedure*([_atreturn_], [_name_], _script_, _..._ ) +
+[small]#Executes (i.e. creates) an SDL procedure as described above. +
+The _name_, _script_ and _..._ parameters have the same meanings as in the functions that
+<<_creating_agents, create regular agents>>, with the difference that if _name=nil_,
+the name defaults to _"procedure<pid>"_ instead of _"agent<pid>"_. +
+The _atreturn_ parameter can be optionally used to define actions to be executed in the
+caller agent's <<dedicated_env, $$_ENV$$>> when the procedure returns, which it does by calling
+_<<procedure_return, procedure_return>>(returnvalues)_: +
+pass:[-] if _atreturn_ is a function, it is executed as _atreturn(returnvalues)_, +
+pass:[-] if _atreturn_ is a string (denoting a state name), then _<<next_state, next_state>>(atreturn)_ is executed, +
+pass:[-] if _atreturn_ is _nil_, then no actions are executed at return. +
+This function is available only to agents (including procedures), and must be used within transitions.#
+
+[[procedure_return]]
+* *procedure_return*(_..._) +
+[small]#Returns from a procedure. This function is to be used in the procedure script 
+instead of <<stop,stop>>(&nbsp;), to terminate the procedure and possibly
+return values to the caller agent. +
+The arguments passed to this function (if any) are in turn passed to the _atreturn_
+function set by the caller when the procedure was created. No script code should follow a
+call to this function in the transition it is in: any action to be performed when the
+procedure returns shall be instead coded in the _atreturn_ argument passed to
+<<procedure, procedure>>(&nbsp;).#
+

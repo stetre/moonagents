@@ -1,0 +1,81 @@
+
+== Agent-scripts
+
+An agent-script defines the behavior of an agent in terms of a <<fsm, state machine>> whose
+transitions are triggered by the asynchronous arrival of input <<_signals, signals>> sent
+to the agent by other agents, by the application, by timers, or by the agent
+itself.
+
+The script and the transitions for an agent are executed in the agent's own
+<<dedicated_env, $$_ENV$$>>, so global functions and variables of an agent do not collide
+with those of other agents (they are 'global' only in its dedicated $$_ENV$$).
+The same script may be used for multiple concurrently-running agents, which means
+it really defines 'a type of agent' rather than 'an agent'.
+
+The *moonagents* table with the functions needed by the agent-script is pre-loaded
+in the agent's dedicated $$_ENV$$ at startup. The script can access the functions via
+the table, or it can use the following utility to make them global in the $$_ENV$$:
+
+[[global_functions]]
+* *global_functions*([_prefix_]) +
+[small]#Makes *moonagents* functions global in the current agent's
+<<dedicated_env, dedicated $$_ENV$$>>, optionally prendending their names with the
+_prefix_ string (for example, the call _global_functions("xxx")_ makes
+ _moonagents.stop_ global with the name _xxxstop_, and similarly for the other functions). +
+This function is available only to agents and should be used at startup.#
+
+An incomplete example of an agent-script is shown below: the top section is the
+startup code to be executed before the start transition (e.g. timers are created here),
+the bottom section defines the transition table by associating Lua functions to
+combinations of states and input signals names, and the middle section
+implements those Lua functions.
+
+
+[source,lua,indent=1]
+----
+-- Example agent-script
+
+-- =========== Top section: startup code ==========================
+
+-- Make moonagents functions global in this _ENV:
+moonagents.global_functions()
+
+-- Create timers, set variables etc.
+local T = timer(30,"T_EXPIRED")
+local somevariable = 0
+
+-- =========== Middle section: the transition functions ===========
+
+local function Start()
+  -- .. 'start transition' here ..
+  next_state("Waiting")
+end
+
+local function Waiting_ConReq()
+  -- received CONREQ signal in Waiting state ...
+  send({ "CONACK" }, sender_)
+  timer_start(T)
+  next_state("Connecting")
+end	
+
+local function Connecting_TExpired()
+  -- received T_EXPIRED signal in Connecting state ...
+  send({ "FAILURE" }, parent_)
+  stop()
+end	
+
+-- ... cut ...
+
+-- =========== Bottom section: the transition table ===============
+
+start_transition(Start)
+--         state         input signal   transition function
+transition("Waiting",    "CONREQ",      Waiting_ConReq)
+transition("Connecting", "CONCNF",      Connecting_ConCnf)
+transition("Connecting", "T_EXPIRED",   Connecting_TExpired)
+transition("Connected",  "DATA",        Connected_Data)
+transition("Any",        "STOP",        Any_Stop)
+default_state("Any")
+
+----
+

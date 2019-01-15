@@ -1,0 +1,65 @@
+
+== System time
+
+Agents and the application have access via the <<now, now>>(&nbsp;) function to a wallclock
+that gives the so-called SDL *system time*. All MoonAgents functions that accept or return a
+timestamp rely on this wallclock.
+
+The system time is relative to an unspecified point in the past, that depends on the
+underlying function used to retrieve time from the operating system.
+
+[[now]]
+* _timestamp_ = *now*( ) +
+[small]#Returns the current system time, in seconds.#
+
+[[since]]
+* _dt_ = *since*(_timestamp_) +
+[small]#Returns the time elapsed from the point in time given by _timestamp_.#
+
+[[timers]]
+== Timers
+
+Agents can create and manage timers using the functions described below.
+A timer is _owned_ by the agent that created it, and can be managed only by its
+owner or by <<_procedures, procedures>> that act on the owner's behalf.
+
+An agent can create timers only before the execution of its start transition, i.e. at the agent's startup.
+Timers can not be created in state <<transition, transitions>> nor within <<procedures, procedures>>.
+Procedures can, however, use timers owned by their calling agent.
+
+When a timer expires, a <<signals, signal>> containing only the associated _signame_
+is sent to the owner agent, or to the procedure that is acting on its behalf, if any.
+The signal is subject to queuing delays in the internal signal scheduler, as any other signal.
+
+[[timer]]
+* _tid_ = *timer*(_duration_, _signame_) +
+[small]#Creates an SDL timer and returns a unique *timer identifier (tid)*. +
+_duration_: the timer's default timeout (seconds), +
+_signame_: the name (a string) of the signal that will be sent to the owner agent when the timer expires. +
+This function is available only to agents, which can create timers only at startup (not within transitions).#
+
+[[timer_modify]]
+* *timer_modify*(_tid_, [_duration_], [_signame_]) +
+[small]#Modifies the default duration and/or the signal name of the timer identified by _tid_. +
+If the timer is running, this function stops it. +
+_duration_ and _signame_: same as for the <<timer,_timer_>>( ) function (pass _nil_ to preserve the old value).#
+
+[[timer_start]]
+* _at_ = *timer_start*(_tid_, [_at_]) +
+[small]#Starts the timer identified by _tid_ so to expire at the <<_system_time, point in time>>
+given by _at_ (defaults to <<now,_now_>>+_duration_).#
+
+[[timer_stop]]
+* _now_ = *timer_stop*(_tid_) +
+[small]#Stops the timer identified by _tid_. +
+If the timer is not running, this function has no effects and generates no errors. +
+Note that a timer is regarded as 'running' from when it is started until the owner agent
+receives the associated signal. As a consequence, if the timer is stopped after its expiry
+but before the signal is received, the signal is discarded by the internal signal scheduler.#
+
+[[timer_running]]
+* _isrunning_, _at_ = *timer_running*(_tid_) +
+[small]#Returns a boolean indicating whether the timer identified by _tid_ is running or not, and
+the <<_system_time, point in time>> at which the timer is expected to expire (or 
+http://www.lua.org/manual/5.3/manual.html#pdf-math.huge[_math.huge_], if the timer is not running).#
+

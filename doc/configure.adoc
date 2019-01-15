@@ -1,0 +1,30 @@
+
+== Optional configurations
+
+The functions below allow to optionally configure some aspects of MoonAgents. 
+They can be used only when the system is not running, i.e. before the creation
+of the <<create_system, system agent>> or after this has terminated.
+
+[[set_env_template]]
+* *set_env_template*(_env_) +
+[small]#Sets the template for the Lua environments dedicated to agents (e.g. for sandboxing). +
+By default, the template environment is a shallow copy of the main environment (_$$_ENV$$_)
+as it is when <<create_system,create_system>>(&nbsp;) is called. +
+Note that the *moonagents* global table containing the functions described in this manual
+is automatically loaded in each agent's dedicated environment, so it need not be added
+to the template environment (and it need not be loaded explicitly in agent-scripts either).#
+
+[[set_priority_levels]]
+* *set_priority_levels*([_nlevels_]) +
+[small]#Sets the number of priority levels to be used in the MoonAgents scheduler
+for <<send, priority signals>>. +
+_nlevels_: an integer between _1_ and _16_ (inclusive), or _nil_ to restore the default. +
+(The default is _1_, i.e. there is one level of priority plus the no-priority level, or 'normal' level).#
+
+[[set_special_value]]
+* *set_special_value*(_name_, _value_) +
+[small]#Set the string _value_ as the value reserved for _name_, which may be one of the following: +
+'_startup_': denotes the initial state an agent is in at startup. Defaults to _'?'_ (a question mark). +
+'_dash_': denotes the 'dash nextstate'. Defaults to _'-'_ (a dash). +
+'_asterisk_': denotes the 'asterisk input'. Defaults to _'*'_ (an asterisk).#
+

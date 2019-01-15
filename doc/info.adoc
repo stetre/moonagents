@@ -1,0 +1,41 @@
+
+== Agent information
+
+The functions described below provide information about SDL agents and help
+agents in locating each other.
+
+All functions raise an error on failure.
+
+[[pid_of]]
+* _pid_ = *pid_of*(_name_, [_rpid=0_]) +
+[small]#Returns the pid corresponding to the given <<agent_name, _name_>>,
+relative to the agent identified by _rpid_. +
+To get the pid of an agent from its full name, pass _rpid=0_ (which is the default). +
+To get the pid of a sibling agent from its local name, pass _rpid=$$parent_$$_.#
+
+[[name_of]]
+* _name_ = *name_of*(_pid_, [_rpid=0_]) +
+[small]#Returns the <<agent_name, _name_>>, relative to _rpid_, of the agent identified by _pid_.
+(by default _rpid=0_ so the full name is returned).#
+
+[[parent_of]]
+* _ppid_ = *parent_of* (_pid_) +
+[small]#Returns the pid of the <<agent_hierarchy, parent>> of the agent identified by _pid_.#
+
+[[state_of]]
+* _state_ = *state_of*(_pid_) +
+[small]#Returns the current state (a string) of the agent identified by _pid_.#
+
+[[children_of]]
+* {_pid_} = *children_of*(_pid_) +
+[small]#Returns the list of pids of the <<agent_hierarchy, children>> created by the agent identified by _pid_.#
+
+[[timers_of]]
+* {_tid_} = *timers_of*(_pid_) +
+[small]#Returns the list of identifiers (tid) of the <<timers, timers>> owned by the agent identified by _pid_.#
+
+[[tree_of]]
+* _string_ = *tree_of*(_pid_) +
+[small]#Returns a string containing a description of the <<agent_hierarchy, sub-tree of agents>>
+rooted at the agent identified by _pid_.#
+

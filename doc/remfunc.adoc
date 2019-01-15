@@ -1,0 +1,32 @@
+
+== Remote functions
+
+*Remote functions* are Lua functions defined in the <<dedicated_env, $$_ENV$$>> of an
+agent (the _exporting agent_) and exported so that they can be synchronously invoked
+by another agent (the _invoking agent_).
+footnote:[Remote functions are not an SDL construct. They are not to be confused 
+with SDL _remote procedures_ (see ITU-T Z.102/10.5) that have a different mechanism
+involving exchange of signals. These are not supported by MoonAgents (at least not directly)]
+
+When the invoking agent calls a remote function, MoonAgents immediately switches to
+the exporting agent's <<dedicated_env, $$_ENV$$>>, executes the function there, and then switches back
+to the invoking agent's <<dedicated_env, $$_ENV$$>> returning it any value returned by the function.
+(That is, the remote function is executed *synchronously and immediately*.)
+
+This mechanism relies on the following two functions:
+
+[[export_function]]
+* *export_function*(_funcname_, [_func_]) +
+[small]#Exports the function _func_ with the name _funcname_ (a string), so that it can be invoked
+by other agents using <<remote_call, remote_call>>(&nbsp;). +
+If _func_ is nil, the function exported with the name _funcname_ is revoked. +
+Since the exported function is intended to be executed from other agents and usually
+within transitions, it is required to <<dont_hang, return as soon as possible>>.#
+
+[[remote_call]]
+* _..._ = *remote_call*(_pid_, _funcname_, _..._) +
+[small]#Executes the function <<export_function, exported>> with the name _funcname_ by
+the agent identified by _pid_, in its  <<dedicated_env, $$_ENV$$>>. +
+The _..._ variable arguments, if any, are passed as arguments to the remote function. +
+Returns the values returned by the remote function, if any.#
+

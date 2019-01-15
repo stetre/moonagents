@@ -1,0 +1,87 @@
+
+[[fsm]]
+== State machines
+
+During its life, an agent goes through a series of *states*.
+Each state is represented by a string that may be any valid Lua string except the reserved
+(yet configurable) <<set_special_value, special values>> for _startup_ and _dash_.
+
+An agent is idle for most of the time and is awakened only when it receives a <<signals, signal>>.
+Signals are dispatched by an internal scheduler that is periodically activated by the application by
+calling the <<trigger, trigger>>(&nbsp;) function in its event loop.
+
+The reception of a signal causes an agent to execute a <<transition, *transition*>>, which is a
+function set by the agent-script as the code to be executed when signals having the input signal's name
+arrive with the agent being in its current state.
+
+A special transition is the *start transition*, set by the agent-script with
+<<start_transition, start_transition>>(&nbsp;),
+that is automatically executed at the end of the agent's startup.
+The start transition must contain a <<next_state, next_state>>(&nbsp;) call to set the first proper
+state entered by the agent, or it can end with a <<stop, stop>>(&nbsp;) call so to terminate the agent
+right after creation.
+
+Transitions are executed in the agent's dedicated <<dedicated_env, $$_ENV$$>> and receive no
+arguments, except for the start transition that receives the arguments (if any) that were passed
+to the <<_creating_agents, create>>(&nbsp;) function in its variable part.
+
+The signal contents and other relevant information such as the sender's pid are
+passed to the agent by means of some <<_special_variables, special variables>> that are
+properly set by MoonAgents before executing a transition.
+footnote:[The <<_special_variables, special variables>> are those prescribed by
+the SDL specifications, with a few additions.]
+
+[[dont_hang]]
+When executed, a transition is expected to perform some task depending on the input signal
+and on the state the agent is in (e.g., it may process input data, set timers, send signals,
+and possibly change the agent's state), and then return.
+
+IMPORTANT: A transition is required to *return as soon as possible*, which means that it must not contain
+infinite loops or calls to blocking functions, otherwise the application would hang
+(the SDL concurrency model is 
+http://en.wikipedia.org/wiki/Computer_multitasking#Cooperative_multitasking[cooperative]).
+
+Once a transition is done, it returns the control to the internal scheduler which possibly
+dispatches any pending signal and eventually returns the control to the application, until
+the next <<trigger, trigger>>(&nbsp;) call.
+
+To define the state machine, an agent-script uses the following functions, where
+_state_ is a string denoting an agent's state, _signame_ is the name of a <<_signal, signal>>
+(also a string), and _func_ is a Lua function:
+
+[[start_transition]]
+* *start_transition*(_func_) +
+[small]#Sets _func_ as the agent's _start transition_. +
+This function is available only to agents and can be used only at agent startup (not in transitions).#
+
+[[transition]]
+* *transition*(_state_, _signame_, _func_) +
+[small]#Sets _func_ as the transition to be executed when
+a _signame_ signal arrives with the agent being in _state_. +
+If _signame_ is the _asterisk_ <<set_special_value, special value>>, the transition applies
+to any signal name except those for which an explicit transition is set. +
+The transition executed when a _signame_ signal arrives with the agent being in _state_
+is the first found in the following list: +
+pass:[-] the one set with _transition(state, signame, func)_, if any, or +
+pass:[-] the one set with _transition(state, <<set_special_value, asterisk>>, func)_, if any, or +
+pass:[-] the one set with _transition(<<default_state, default_state>>, signame, func)_, if any, or +
+pass:[-] the one set with _transition(<<default_state, default_state>>, <<set_special_value, asterisk>>, func)_, if any, or +
+pass:[-] the so-called _empty transition_, which basically means that the signal is silently discarded. +
+This function is available only to agents and should be used only at agent startup (not in transitions).#
+
+[[default_state]]
+* *default_state*(_state_) +
+[small]#Sets _state_ as the agent's default state, which defines transitions for signals
+that are not catched with <<transition, transition>>(&nbsp;) in the state the agent is in
+when they arrive. +
+This function is available only to agents and should be used only at agent startup (not in transitions).#
+
+[[next_state]]
+* *next_state*([_state_]) +
+[small]#Changes the agent's state to _state_. +
+If the state actually changes, i.e. if the agent was not already in that state,
+any input signal previously saved with <<save, save>>(&nbsp;) is re-scheduled. +
+If _state_ is the _dash_ <<set_special_value, special value>> this function immediately returns
+with no effects. +
+This function is available only to agents and should be used only within transitions.#
+

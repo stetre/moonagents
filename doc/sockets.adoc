@@ -1,0 +1,21 @@
+
+== Sockets
+
+This functionality requires https://github.com/diegonehab/luasocket[LuaSocket].
+
+[[socket_add]]
+* *socket_add*(_socket_, _mode_, _callback_) +
+[small]#Adds _socket_ (created with https://github.com/diegonehab/luasocket[LuaSocket], or a compatible object) to the list of sockets monitored for reading (_mode='r'_) or for writing (_mode='w'_). +
+The _callback_ is a function that is executed - immediately and synchronously - in the
+dedicated <<dedicated_env, $$_ENV$$>> of the agent that called this function, whenever the
+socket is detected to be ready within a <<trigger, trigger>>(&nbsp;) call.
+It is executed as *_callback(socket)_*  and must <<dont_hang, not block>>. +
+The _socket_ is forced by MoonAgents to be non-blocking (_socket:settimeout(0)_, see the LuaSocket documentation for more details). +
+To monitor a socket for both reading and writiting, add (and remove) it twice,
+i.e. independently once per mode.#
+
+[[socket_remove]]
+* *socket_remove*(_socket_, _mode_) +
+[small]#Removes _socket_ from the  list of sockets monitored for reading (_mode='r_') or for
+writing (_mode='w_').#
+

@@ -1,0 +1,67 @@
+
+== Logs and Traces
+
+A MoonAgents application can open a *system logfile* and use the functions described
+here to write on it. The system logfile is used by MoonAgents as destination both
+for regular <<log_enable, logs>> and for internal <<trace_enable, traces>>.
+
+[[log_open]]
+* _filehandle_ = *log_open*(_filename_) +
+[small]#Opens the file named _filename_ to be used as system logfile, and enables logs. +
+The file is opened in write mode, using the standard Lua
+http://www.lua.org/manual/5.3/manual.html#pdf-io.open[io.open]. +
+If the system logfile is already open, it is closed and re-opened. +
+Any previously existing file with the same name is overwritten.#
+
+[[log_file]]
+* _filehandle_, _filename_ = *log_file*( ) +
+[small]#Returns the file handle and the file name of the system logfile (if it is open, otherwise
+it returns _nil_ and an error message).#
+
+If the system logfile is not open, or if it is disabled, calls of the functions 
+below are silently ignored and raise no errors.
+
+[[log_enable]]
+* *log_enable*(_onoff_) +
+[small]#Enable/disable logs on the system logfile, depending on the boolean value _onoff_. +
+Logs are enabled by default at the opening of the system logfile.#
+
+[[trace_enable]]
+* *trace_enable*(_onoff_) +
+[small]#Enable/disable traces on the system logfile, depending on the boolean value _onoff_. +
+Traces are produced internally by the MoonAgents engine to log relevant events such as the
+creation of agents, state changes, the delivery and reception of signals, timer events, and so on.
+They are intended mainly for troubleshooting, time consuming, and disabled by default. +
+If the logfile is not open, this function has no effects.#
+
+[[log_flush]]
+* *log_flush*( ) +
+[small]#Flushes the system logfile. +
+MoonAgents automatically flushes it only at its closure or when the system agent stops.#
+
+[[log_close]]
+* *log_close*( ) +
+[small]#Flushes and closes the system logfile.#
+
+[[log]]
+* *log*(_formatstring_, _..._) +
+[small]#Formats its arguments using the standard Lua 
+http://www.lua.org/manual/5.3/manual.html#pdf-string.format[_string.format_],
+and writes the resulting message to the system logfile, prepending it with a
+<<_system_time,timestamp>> and the pid of the current SDL agent.#
+
+[[log_print]]
+* *log_print*(_formatstring_, _..._) +
+[small]#Similar to <<log, log>>(&nbsp;), it additionally writes the message also on _stdout_
+(but without the timestamp and the preamble).
+If the system logfile is not open or if logs are disabled, it writes on _stdout_ only.#
+
+[[set_log_preamble]]
+* *set_log_preamble*([_func_]) +
+[small]#Override the default log preamble function with the passed _func_ (a function). +
+The preamble function is called by <<log, log>>(&nbsp;) and is expected to return a string
+to prepend to the log output. If _func_ is _nil_, nothing is prepended. +
+The default preamble is the <<_system_time, system time>> followed by the pid of the current
+agent between square brackets (e.g. _'184445.048954&nbsp;[8]&nbsp;'_ is the preamble of a
+log produced by the agent with _pid=8_ at time _184445.048954_).#
+

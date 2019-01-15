@@ -1,0 +1,127 @@
+
+== Overview
+
+MoonAgents extends Lua with the basic constructs for the implementation of SDL systems
+footnote:[MoonAgents is not an implementation of the
+SDL specifications, just inspired by them.
+It deviates from standard SDL in (at least) the following:
+it uses an all-to-all pid-based communication model, with a single signal queue instead of
+per-agent input queues (although one could argue that the per-agent queues ar just merged
+but still distinguishable by the destination pid);
+it makes no distinction between _block_ and _process_ agents;
+it has no explicit definitions of channels and gates;
+it allows any agent (not only the system agent) to communicate with the SDL environment;
+it uses Lua data types and has no built-in support for ADT and ASN.1;
+it has additional non-SDL constructs like priority outputs, time-triggered signals and remote
+synchronous functions with immediate return.],
+which are systems composed of concurrent, reactive, and intercommunicating
+entities referred to as *agents*. You can think of agents as of
+http://en.wikipedia.org/wiki/Computer_multitasking#Cooperative_multitasking[cooperative]
+threads of execution interleaved in a single OS-thread,
+akin to Lua's native http://www.lua.org/manual/5.3/manual.html#2.6[coroutines]
+footnote:[For comparison, the `examples/web-download` directory contains the same
+example (from the PIL book) implemented both with coroutines and with MoonAgents.
+With respect to Lua's native coroutines, MoonAgents provides built-in constructs to
+define state machines using a well established formalism (SDL), to make them communicate
+via asynchronous signals, timers and some other facilities. All this at the price of some overhead,
+so if your application doesn't need these things then coroutines are a better alternative.].
+
+The behavior of agents is defined by <<_agent_scripts, *agent-scripts*>>
+in terms of <<fsm, *finite state machines*>> whose transitions are triggered by the reception
+of asynchronous <<_signals, *signals*>> (messages), which are plain Lua tables containing a
+signal name (a string) plus whatever else the system designer desires.
+
+Asynchronous signals are the main communication method in the system: agents communicate
+mainly by exchanging signals with each other and with the application
+(that can be seen as what in SDL parlance is called the _'environment'_
+footnote:[The term *_'environment'_* is used in SDL to denote the outer world with respect to
+an SDL system. To avoid confusion with the concept of _'Lua environment'_  we will refer to
+the latter as $$_ENV$$ and to the former as _'the SDL environment'_ (or simply as
+_'the application'_, since agents inevitably communicate with the outer world via the
+application).]),
+and may create and arm <<_timers, *timers*>>
+whose expiries are also notified to them by means of signals.
+
+[[dedicated_env]]
+Agents are created with the <<_creating_agents, *create*>>( ) function, passing it
+the agent-scripts and optional parameters. Each agent is run in a
+http://www.lua.org/manual/5.3/manual.html#2.2[*dedicated Lua environment ($$_ENV$$)*]
+that provides it with an own context of execution and separates its namespace from those
+of other agents running in the same application.
+In this $$_ENV$$, MoonAgents preloads the *moonagents* table with the functions available
+to the script, and sets some <<_special_variables, *special variables*>> that it uses
+to share information with the agent (and some other special variables for internal
+use that the agent-scripts must not touch nor care about).
+
+The main script of a typical application using MoonAgents looks like in the following example:
+
+[source,lua,indent=1]
+----
+local moonagents = require("moonagents")
+
+-- ... optional configurations and other non-MoonAgents setups...
+
+-- Start the SDL system, by creating the first agent:
+local pid = moonagents.create_system("MyAgentName","myagentscript")
+
+-- Event loop:
+while true do
+   -- Trigger the signal scheduler:
+   if not moonagents.trigger() then
+      -- ... the SDL system has stopped ...
+   end
+   -- Other typical event-loop stuff goes here or above
+   -- (e.g. input handling, draw calls, etc.)
+end
+----
+
+The application loads the MoonAgents module, optionally <<_optional_configurations, configures>> it,
+<<_creating_agents, creates>> the first agent, and then enters an event loop where, among
+other typical event-loop stuff, it is expected to call the <<trigger, trigger>>(&nbsp;) function
+that causes an internal scheduler to dispatch any signal pending in the SDL system to the agents.
+
+[[system_agent]]
+The first created agent is called the *system agent* and is the only one directly created
+by the application. Other agents may be created by the system agent and by its descendants
+during the evolution of the system's life, that coincides with that of the system agent
+(when this terminates, the system does also).
+footnote:[Standard SDL makes also a distinction between _block_ agents, which are containers
+of agents, and _process_ agents, which are not. MoonAgents makes no such distinction, and 
+any agent may be (also) a container, if the system designer wants so.]
+
+[[agent_hierarchy]]
+The creator of an agent is its _parent_ (the parent of the system agent being the application).
+Thus, agents are naturally organized in a *hierarchical tree* rooted at the application,
+whose only child is the system agent. Any agent other than the application has one _parent_ and
+may have zero or more _children_.
+
+[[pid]]
+Each agent has a *process identifier (pid)*, an integer value unique within the SDL system and
+automatically assigned to the agent at its creation.
+The special value *pid=0* identifies the application.
+Unique pids in the same domain are also assigned to <<_procedures, procedures>>.
+footnote:[<<procedures, Procedures>> and the application itself are not really agents,
+but to some extent are regarded as such beause they take part in the signal-based
+communication, where pids are used as addresses.]
+
+[[agent_name]]
+At its creation, each agent is also assigned a name. The _name_ passed to the
+<<create, create>>(&nbsp;) function (or automatically assigned) is the agent's *local name*,
+which is required to be unique only among siblings, i.e. in the set of children of the agent's
+<<agent_hierarchy, parent>>.
+
+The *relative name* of the agent with respect to a given ancestor is the concatenation,
+dot-separated, of all the names on the lineage from the ancestor (excluded) to the agent
+itself (included). The relative name with respect to its parent is thus the local name.
+A relative name is unique only among descendants of the ancestor it is relative to.
+
+The *full name* of the agent is its name relative to the application (i.e. obtained by
+concatenating the names on the lineage starting from the system agent included).
+The full name is unique within the whole system.
+
+The agent name may encode information such as the agent's '`type`' and '`instance`' (if
+the system designer wants so), and provides a convenient way to identify agents in
+reusable agent-scripts without relying on the pid which may (and generally does)
+vary from application to application.
+Functions are provided to <<_agent_information, resolve agent names into pids>> and viceversa.
+

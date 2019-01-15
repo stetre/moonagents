@@ -1,0 +1,63 @@
+
+== Preface
+
+This is the reference manual
+footnote:[This manual is written in
+http://www.methods.co.nz/asciidoc/[AsciiDoc], rendered with
+http://asciidoctor.org/[AsciiDoctor] and a CSS from the
+https://github.com/asciidoctor/asciidoctor-stylesheet-factory[AsciiDoctor Stylesheet Factory].]
+of *MoonAgents*, which is a 
+http://www.lua.org[*Lua*] module for *event-driven concurrent programming*, whose design follows the
+concurrency model of the
+*http://en.wikipedia.org/wiki/Specification_and_Description_Language[ITU-T Specification and
+Description Language (SDL)]*.
+footnote:[The *SDL specifications* are freely available on the http://www.itu.int/rec/T-REC-Z/en[ITU site].
+Introductive papers to SDL, a bit outdated but still very good, can be found
+in the http://www.telenor.com/innovation/telektronikk/archive[Telektronikk journal], 
+_Volume 4.2000 "Languages for Telecommunication Applications"_, Ed: Rolv Bræk.)]
+
+It is assumed that the reader is familiar with both SDL
+and the Lua programming language.
+
+For convenience of reference, this document contains external (deep) links to the 
+http://www.lua.org/manual/5.3/manual.html[Lua Reference Manual].
+
+=== Getting and installing
+
+For installation intructions, refer to the README file in the 
+https://github.com/stetre/moonagents[*MoonAgents official repository*]
+on GitHub.
+
+=== Module organization
+
+The MoonAgents module is loaded using Lua's 
+http://www.lua.org/manual/5.3/manual.html#pdf-require[require]() and
+returns a table containing the functions it provides 
+(as usual with Lua modules). This manual assumes that such
+table is named *moonagents*, i.e. that it is loaded with:
+
+[source,lua,indent=1]
+----
+moonagents = require("moonagents")
+----
+
+but nothing forbids the use of a different name.
+
+=== Examples
+
+Complete examples can be found in the *examples/* directory of the release package.
+
+=== License
+
+MoonAgents is released under the *MIT/X11 license* (same as
+http://www.lua.org/license.html[Lua], and with the same only requirement to give proper
+credits to the original author). 
+The copyright notice is in the LICENSE file in the base directory
+of the https://github.com/stetre/moonagents[official repository] on GitHub.
+
+[[see-also]]
+=== See also
+
+MoonAgents is part of https://github.com/stetre/moonlibs[MoonLibs], a collection of 
+Lua libraries for graphics and audio programming.
+
