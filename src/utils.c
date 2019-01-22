@@ -305,9 +305,9 @@ static int Set_text_style(lua_State *L)
             case 0: break; // empty table: keep current values
             case 1: printf("\033[%dm", fg); break;
             case 2: printf("\033[%dm", mode); break;
-            case 3: printf("\033[%d;;%dm", mode, fg); break;
+            case 3: printf("\033[%d;%dm", mode, fg); break;
             case 4: printf("\033[%dm", bg); break;
-            case 5: printf("\033[;%d;%dm", bg, fg); break;
+            case 5: printf("\033[%d;%dm", bg, fg); break;
             case 6: printf("\033[%d;%dm", mode, bg); break;
             case 7: printf("\033[%d;%d;%dm", mode, bg, fg); break;
             }
