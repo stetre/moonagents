@@ -35,9 +35,10 @@ Another difference with regular agents is that procedures can not create <<timer
 They can use timers owned by the agent they act on behalf of, though.
 
 [[procedure]]
-* _pid_ = *procedure*([_atreturn_], [_name_], _script_, _..._ ) +
+* _pid_ = *procedure*([_atreturn_], [_name_], _scriptname_, _..._ ) +
+_pid_ = *procedure_s*([_atreturn_], [_name_], _scriptcode_, _..._ ) +
 [small]#Executes (i.e. creates) an SDL procedure as described above. +
-The _name_, _script_ and _..._ parameters have the same meanings as in the functions that
+The _name_, _scriptname_ (or _scriptcode_) and _..._ parameters have the same meanings as in the functions that
 <<_creating_agents, create regular agents>>, with the difference that if _name=nil_,
 the name defaults to _"procedure<pid>"_ instead of _"agent<pid>"_. +
 The _atreturn_ parameter can be optionally used to define actions to be executed in the

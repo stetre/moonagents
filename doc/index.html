@@ -1096,34 +1096,41 @@ implements those Lua functions.</p>
 <div id="create_system" class="ulist">
 <ul>
 <li>
-<p><em>pid</em> = <strong>create_system</strong>([<em>name</em>], <em>script</em>, <em>&#8230;&#8203;</em>)<br>
+<p><em>pid</em> = <strong>create_system</strong>([<em>name</em>], <em>scriptname</em>, <em>&#8230;&#8203;</em>)<br>
+<em>pid</em> = <strong>create_system_s</strong>([<em>name</em>], <em>scriptcode</em>, <em>&#8230;&#8203;</em>)<br>
 <span class="small">Creates the <a href="#system_agent">system agent</a>, starts the SDL system,
 and returns the system agent&#8217;s pid.<br>
 The parameters have the same meaning as for the <a href="#create">create</a>(&nbsp;) function.<br>
-This function is available only to the application and can be used only when the system is not running.</span></p>
+These functions are available only to the application and can be used only when the system is not running.</span></p>
 </li>
 </ul>
 </div>
 <div id="create" class="ulist">
 <ul>
 <li>
-<p><em>pid</em> = <strong>create</strong>([<em>name</em>], <em>script</em>, <em>&#8230;&#8203;</em>)<br>
+<p><em>pid</em> = <strong>create</strong>([<em>name</em>], <em>scriptname</em>, <em>&#8230;&#8203;</em>)<br>
+<em>pid</em> = <strong>create_s</strong>([<em>name</em>], <em>scriptcode</em>, <em>&#8230;&#8203;</em>)<br>
 <span class="small">Creates an agent other than the system agent.<br>
 <em>name</em>: the agent&#8217;s <a href="#agent_name">name</a> (a string not containing dots). If <em>name=nil</em>, the default
 name <em>"agent&lt;pid&gt;"</em> is used (e.g. <em>"agent1"</em>, <em>agent2"</em>, etc.)<br>
-<em>script</em>: the <a href="#_agent_scripts">agent-script</a> defining the agent&#8217;s behaviour (see below
+<em>scriptname</em>: the <a href="#_agent_scripts">agent-script</a> defining the agent&#8217;s behaviour (see below
 for how the script is searched).<br>
+<em>scriptcode</em>: the code for the agent script (a string).<br>
 <em>&#8230;&#8203;</em>: optional arguments to be passed to the <a href="#start_transition">start transition</a>.<br>
-This function is available only to agents and should be used within transitions.</span></p>
+These functions are available only to agents and should be used within transitions.</span></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>To <strong>find agent-scripts</strong>, the functions above use the same mechanism that Lua uses to find
-modules and packages.</p>
+<p>When creating an agent or a <a href="#procedure">procedure</a>, the script can be provided either as
+as a string containing Lua code, or by passing the name of the file that contains the code.</p>
 </div>
 <div class="paragraph">
-<p>More precisely, the <em>script</em> argument (a string) is resolved by invoking the standard Lua
+<p>In the latter case, the same mechanism that Lua uses to find modules and packages is used
+to find the correct file from its name.</p>
+</div>
+<div class="paragraph">
+<p>More precisely, the <em>scriptname</em> argument (a string) is resolved by invoking the standard Lua
 <a href="http://www.lua.org/manual/5.3/manual.html#pdf-package.searchpath">package.searchpath</a>(&nbsp;)
 function, passing it the templates contained in the variable <strong>moonagents.path</strong> as the
 argument for the <em>path</em> parameter.</p>
@@ -1623,9 +1630,10 @@ They can use timers owned by the agent they act on behalf of, though.</p>
 <div id="procedure" class="ulist">
 <ul>
 <li>
-<p><em>pid</em> = <strong>procedure</strong>([<em>atreturn</em>], [<em>name</em>], <em>script</em>, <em>&#8230;&#8203;</em> )<br>
+<p><em>pid</em> = <strong>procedure</strong>([<em>atreturn</em>], [<em>name</em>], <em>scriptname</em>, <em>&#8230;&#8203;</em> )<br>
+<em>pid</em> = <strong>procedure_s</strong>([<em>atreturn</em>], [<em>name</em>], <em>scriptcode</em>, <em>&#8230;&#8203;</em> )<br>
 <span class="small">Executes (i.e. creates) an SDL procedure as described above.<br>
-The <em>name</em>, <em>script</em> and <em>&#8230;&#8203;</em> parameters have the same meanings as in the functions that
+The <em>name</em>, <em>scriptname</em> (or <em>scriptcode</em>) and <em>&#8230;&#8203;</em> parameters have the same meanings as in the functions that
 <a href="#_creating_agents">create regular agents</a>, with the difference that if <em>name=nil</em>,
 the name defaults to <em>"procedure&lt;pid&gt;"</em> instead of <em>"agent&lt;pid&gt;"</em>.<br>
 The <em>atreturn</em> parameter can be optionally used to define actions to be executed in the

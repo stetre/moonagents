@@ -366,27 +366,39 @@ end
 
 local Loaders = {} -- cached script loaders
 
-local function CompileScript(script)
+local function CompileScriptFromString(script)
+   local loader, errmsg = load("local _ENV=... "..script)
+   if not loader then return nil, errmsg end
+   Loaders[script] = {
+      loader = loader, -- the compiled chunk (a function that accepts _ENV as a parameter),
+      name = script:sub(1, 20).." ...", -- the beginning portion of the script,
+   }
+   return Loaders[script]
+end
+
+local function CompileScript(script, fromstring)
 -- script = script name in require() style.
 -- Searches script and compiles it. Caches the compiled chunk for future use,
 -- to save time when more than one agent is created with the same script.
    local ld = Loaders[script]
    if ld then return ld end -- cached
+   if fromstring then return CompileScriptFromString(script) end
    local filename, errmsg = package.searchpath(script, moonagents.path)
    if not filename then return nil, errmsg end
    local loader, errmsg = LoadScript(filename)
    if not loader then return nil, errmsg end
    Loaders[script] = {
-      loader = loader,     -- the compiled chunk (a function that accepts _ENV as a parameter),
-      filename = filename, -- filename = the full pathname of the script,
+      loader = loader, -- the compiled chunk (a function that accepts _ENV as a parameter),
+      name = filename, -- the full pathname of the script,
    }
    return Loaders[script]
 end
 
 --xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-local function NewAgent(isprocedure, atreturn, name, script, ...)
+local function NewAgent(isprocedure, atreturn, name, fromstring, script, ...)
 --xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 -- isprocedure = true if procedure, false otherwise
+-- fromstring = true if script contains the code instead of the name
    -- local ts = now()
    if name and (type(name)~='string' or find(name, '%.')) then error("invalid name") end
    if type(script)~='string' then error("missing or invalid script") end
@@ -455,12 +467,12 @@ local function NewAgent(isprocedure, atreturn, name, script, ...)
    if not caller_ then CanCreateTimers = true end
 
    -- Load the script
-   local ld, errmsg = CompileScript(script)
+   local ld, errmsg = CompileScript(script, fromstring)
    if not ld then goto failure end
 
    if trace_on then
       Trace("starting %s '%s' (%s, parent %d)", isprocedure and "procedure" or "agent", 
-         name_, ld.filename, parent_)
+         name_, ld.name, parent_)
    end
 
    -- Execute the script
@@ -472,7 +484,7 @@ local function NewAgent(isprocedure, atreturn, name, script, ...)
 
    -- Execute the start transition
    if not moonagents_.startfunc then
-      errmsg = format("missing start_transition() in script '%s'", ld.filename)
+      errmsg = format("missing start_transition() in script '%s'", ld.name)
       goto failure
    end
 
@@ -480,7 +492,7 @@ local function NewAgent(isprocedure, atreturn, name, script, ...)
    moonagents_.startfunc(...)
 
    if state_ == Startup then
-      errmsg = format("missing first next_state() in script '%s'", ld.filename)
+      errmsg = format("missing first next_state() in script '%s'", ld.name)
       goto failure
    end
 
@@ -799,13 +811,22 @@ end
 --=============================================================================
 
 local function Create(name, script,...)
-   offspring_ = NewAgent(false, nil, name, script, ...)
+   offspring_ = NewAgent(false, nil, name, false, script, ...)
+   return offspring_
+end
+
+local function Create_s(name, script,...)
+   offspring_ = NewAgent(false, nil, name, true, script, ...)
    return offspring_
 end
 
 local function Procedure(atreturn, name, script, ...)
    -- don't change offspring_ here, because a procedure is not really an agent.
-   return NewAgent(true, atreturn, name, script, ...)
+   return NewAgent(true, atreturn, name, false, script, ...)
+end
+
+local function Procedure_s(atreturn, name, script, ...)
+   return NewAgent(true, atreturn, name, true, script, ...)
 end
 
 local function ProcedureReturn(...)
@@ -1058,7 +1079,7 @@ local function SetSpecialValue(name, value)
    Log("special values: startup='%s', dash='%s' asterisk='%s'", Startup, Dash, Asterisk)
 end
 
-local function CreateSystem(name, script, ...)
+local function CreateSystem_(name, fromstring, script, ...)
    if SystemRunning then error("cannot create system while the system is running") end
    if name~=nil and type(name)~='string' then error("invalid name") end
    if type(script)~='string' then error("missing or invalid script") end 
@@ -1082,7 +1103,15 @@ local function CreateSystem(name, script, ...)
    timers_init(TimersCallback)
 
    -- Eventually create the first agent (pid=1)
-   return NewAgent(false, nil, name, script, ...)
+   return NewAgent(false, nil, name, fromstring, script, ...)
+end
+
+local function CreateSystem(name, script, ...)
+   return CreateSystem_(name, false, script, ...)
+end
+
+local function CreateSystem_s(name, script, ...)
+   return CreateSystem_(name, true, script, ...)
 end
 
 --=============================================================================
@@ -1225,6 +1254,7 @@ moonagents.set_priority_levels = SetPriorityLevels
 moonagents.set_env_template = SetEnvTemplate
 moonagents.set_special_values = SetSpecialValue
 moonagents.create_system = CreateSystem
+moonagents.create_system_s = CreateSystem_s
 
 -- This functions can be used always:
 moonagents.set_log_preamble = SetLogPreamble
@@ -1262,12 +1292,14 @@ moonagents_for_scripts.global_functions = GlobalFunctions
 moonagents_for_scripts.now = now
 moonagents_for_scripts.since = since
 moonagents_for_scripts.create = Create
+moonagents_for_scripts.create_s = Create_s
 moonagents_for_scripts.start_transition = StartTransition
 moonagents_for_scripts.transition = Transition
 moonagents_for_scripts.default_state = DefaultState
 moonagents_for_scripts.next_state = NextState
 moonagents_for_scripts.stop = Stop
 moonagents_for_scripts.procedure = Procedure
+moonagents_for_scripts.procedure_s = Procedure_s
 moonagents_for_scripts.procedure_return = ProcedureReturn
 moonagents_for_scripts.export_function = ExportFunction
 moonagents_for_scripts.remote_call = RemoteCall
