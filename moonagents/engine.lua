@@ -352,35 +352,35 @@ end
 -- Agent creation                                                              
 --=============================================================================
 
-local function LoadScript(scriptname)
--- Similar to loadfile(scriptname), but returns a loader that
--- accepts the environment as parameter (see PIL3/14.5)
-   local f, errmsg = io.open(scriptname, "r")
+local function LoadScript(filename)
+-- Similar to loadfile(filename), but returns a loader function that accepts
+-- as parameter a table to be set as _ENV for the script (see PIL3/14.5)
+   local f, errmsg = io.open(filename, "r")
    if not f then return nil, errmsg end
-   local ld = "local _ENV=... " .. f:read("*a")
+   local chunk = "local _ENV=... " .. f:read("*a")
    f:close()
-   local loader, errmsg = load(ld, format("@%s", scriptname))
+   local loader, errmsg = load(chunk, format("@%s", filename))
    if not loader then return nil, errmsg end
    return loader
 end
 
-local Loaders = {}   -- Loaders[script] = { loader, fullname }
+local Loaders = {} -- cached script loaders
 
-local function SearchScript(script)
--- Searches script and loads it (if not already loaded)
+local function CompileScript(script)
+-- script = script name in require() style.
+-- Searches script and compiles it. Caches the compiled chunk for future use,
+-- to save time when more than one agent is created with the same script.
    local ld = Loaders[script]
-   if ld then return ld end 
-   ld = {}
-   local fullname, errmsg = package.searchpath(script, moonagents.path)
-   if not fullname then return nil, errmsg end
-   -- Cache the loaded script for future use
-   -- (this saves time when creating a lot of agents with the same script)
-   local loader, errmsg = LoadScript(fullname)
+   if ld then return ld end -- cached
+   local filename, errmsg = package.searchpath(script, moonagents.path)
+   if not filename then return nil, errmsg end
+   local loader, errmsg = LoadScript(filename)
    if not loader then return nil, errmsg end
-   ld.fullname = fullname
-   ld.loader = loader
-   Loaders[script] = ld
-   return ld
+   Loaders[script] = {
+      loader = loader,     -- the compiled chunk (a function that accepts _ENV as a parameter),
+      filename = filename, -- filename = the full pathname of the script,
+   }
+   return Loaders[script]
 end
 
 --xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -455,12 +455,12 @@ local function NewAgent(isprocedure, atreturn, name, script, ...)
    if not caller_ then CanCreateTimers = true end
 
    -- Load the script
-   local ld, errmsg = SearchScript(script)
+   local ld, errmsg = CompileScript(script)
    if not ld then goto failure end
 
    if trace_on then
       Trace("starting %s '%s' (%s, parent %d)", isprocedure and "procedure" or "agent", 
-         name_, ld.fullname, parent_)
+         name_, ld.filename, parent_)
    end
 
    -- Execute the script
@@ -472,7 +472,7 @@ local function NewAgent(isprocedure, atreturn, name, script, ...)
 
    -- Execute the start transition
    if not moonagents_.startfunc then
-      errmsg = format("missing start_transition() in script '%s'", ld.fullname)
+      errmsg = format("missing start_transition() in script '%s'", ld.filename)
       goto failure
    end
 
@@ -480,7 +480,7 @@ local function NewAgent(isprocedure, atreturn, name, script, ...)
    moonagents_.startfunc(...)
 
    if state_ == Startup then
-      errmsg = format("missing first next_state() in script '%s'", ld.fullname)
+      errmsg = format("missing first next_state() in script '%s'", ld.filename)
       goto failure
    end
 
