@@ -1,4 +1,5 @@
 
+[[procedures]]
 == Procedures
 
 *SDL procedures* are sub-parts of state machines, that can be reused in

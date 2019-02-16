@@ -467,6 +467,7 @@ local function NewAgent(isprocedure, atreturn, name, fromstring, script, ...)
    if not caller_ then CanCreateTimers = true end
 
    -- Load the script
+   local ok
    local ld, errmsg = CompileScript(script, fromstring)
    if not ld then goto failure end
 
@@ -489,7 +490,8 @@ local function NewAgent(isprocedure, atreturn, name, fromstring, script, ...)
    end
 
    if trace_on then Trace("start transition") end
-   moonagents_.startfunc(...)
+   ok, errmsg = pcall(moonagents_.startfunc, ...)
+   if not ok then goto failure end
 
    if state_ == Startup then
       errmsg = format("missing first next_state() in script '%s'", ld.name)
@@ -941,10 +943,8 @@ local function SendOut(sig)
    if ReceiveCallback then ReceiveCallback(sig, srcpid) end
 end
 
-local function Send(sig, dstpid, priority)
-   if type(sig)~='table' then error("missing or invalid signal") end
-   if dstpid==nil or tointeger(dstpid)~=dstpid then error("missing or invalid destination pid") end
-   if tointeger(priority)~=priority then error("invalid priority") end
+local function Send1(sig, dstpid, priority)
+   if dstpid==nil or tointeger(dstpid)~=dstpid then error("missing or invalid destination pid",2) end
    if dstpid == 0 then return SendOut(sig) end
    local env = ENV[dstpid] -- destination agent
    priority = ( env and env.moonagents_.inputpriority[sig[1]] ) or priority
@@ -970,6 +970,18 @@ local function Send(sig, dstpid, priority)
    return sendtime
 end
 
+local function Send(sig, dstpid, priority)
+   if type(sig)~='table' then error("missing or invalid signal") end
+   if tointeger(priority)~=priority then error("invalid priority") end
+   if type(dstpid)=='table' then -- multicast
+      for _, dst in ipairs(dstpid) do Send1(sig, dst, priority) end
+      return now()
+   else
+      return Send1(sig, dstpid, priority)
+   end
+end
+
+
 local function InputPriority(signame, priority)
    if type(signame)~='string' then error("missing or invalid signal name") end
    if tointeger(priority)~=priority then error("invalid priority") end
@@ -980,18 +992,27 @@ local function InputPriority(signame, priority)
    end
 end
 
-local function SendAt(sig, dstpid, at, maxdelay)
+local function SendAt1(sig, dstpid, at, maxdelay)
 -- Time-Triggered Signals (aka "Real-time signalling", but there is no real 'real-time' here)
-   if type(sig)~='table' then error("missing or invalid signal") end
    if dstpid==nil or tointeger(dstpid)~=dstpid then error("invalid destination pid") end
-   if at==nil or tonumber(at)~=at then error("missing or invalid delivery time (at)") end
-   if tonumber(maxdelay)~=maxdelay then error("invalid maxdelay") end
    local srcpid =  caller_ or self_ or 0
    local expiry = maxdelay and at + maxdelay or NEVER -- when sig must be considered stale
    if trace_on then
       Trace("send_at '%s' %d->%d at %f (expires at %f)", sig[1], srcpid, dstpid, at, expiry)
    end
    tts_send({ sig, srcpid, dstpid, at, expiry }, at)
+end
+
+local function SendAt(sig, dstpid, at, maxdelay)
+-- Time-Triggered Signals (aka "Real-time signalling", but there is no real 'real-time' here)
+   if type(sig)~='table' then error("missing or invalid signal") end
+   if at==nil or tonumber(at)~=at then error("missing or invalid delivery time (at)") end
+   if tonumber(maxdelay)~=maxdelay then error("invalid maxdelay") end
+   if type(dstpid)=='table' then -- multicast
+      for _, dst in ipairs(dstpid) do SendAt1(sig, dst, at, maxdelay) end
+   else
+      SendAt1(sig, dstpid, at, maxdelay)
+   end
 end
 
 --@@ "continuous signals" should be implementable with priority signals

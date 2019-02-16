@@ -27,8 +27,10 @@ To send signals, agents use the following functions:
 
 [[send]]
 * _now_ = *send*(<<signal_format, _signal_>>, _dstpid_, [_priority_]) +
+_now_ = *send*(<<signal_format, _signal_>>, {_dstpid_}, [_priority_]) +
 [small]#Sends _signal_ to the agent identified by _dstpid_, with the specified
 _priority_, and returns the current <<_system_time,time>>. +
+If _dstpid_ is a list of pids, the signal is sent to all the corresponding agents. +
 _priority_ is an integer between _1_ (high) and _N_ (low), where _N_ is the <<set_priority_levels, number of priority levels>>. +
 If _priority_ is not specified, or if it is greater than _N_, the signal is sent without priority (which means lowest). +
 This function is available both to agents and to the application, that can use it to send signals to the system.#
@@ -52,12 +54,15 @@ sent at a point in time in the future, without the need to create timers for thi
 
 [[send_at]]
 * *send_at*(<<signal_format, _signal_>>, _dstpid_, _at_, [_maxdelay_]) +
+*send_at*(<<signal_format, _signal_>>, {_dstpid_}, _at_, [_maxdelay_]) +
 [small]#A signal sent with this function  is retained in an internal queue and
 dispatched (with maximum priority) to the agent identified by _dstpid_ only when the
 <<_system_time, point in time>> given by _at_ arrives.
 If, for some reason, the signal can not be delivered before the point in time given by
 _at+maxdelay_, it is considered stale and silently discarded
-(_maxdelay_ defaults to _infinity_, i.e. the signal is never considered stale).#
+(_maxdelay_ defaults to _infinity_, i.e. the signal is never considered stale). +
+If _dstpid_ is a list of pids, the signal is sent to all the corresponding agents. +
+This function is available both to agents and to the application, that can use it to send signals to the system.#
 
 An agent can impose the priority of input signals by using this function:
 

@@ -28,7 +28,7 @@ To get the pid of a sibling agent from its local name, pass _rpid=$$parent_$$_.#
 
 [[children_of]]
 * {_pid_} = *children_of*(_pid_) +
-[small]#Returns the list of pids of the <<agent_hierarchy, children>> created by the agent identified by _pid_.#
+[small]#Returns the list of pids of the <<agent_hierarchy, children>> created by the agent identified by _pid_ (note that this includes <<procedures, procedures>>).#
 
 [[timers_of]]
 * {_tid_} = *timers_of*(_pid_) +

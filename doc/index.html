@@ -792,7 +792,7 @@ p.tableblock.header { color: #6d6e71; }
 <li><a href="#_signals">Signals</a></li>
 <li><a href="#_system_time">System time</a></li>
 <li><a href="#timers">Timers</a></li>
-<li><a href="#_procedures">Procedures</a></li>
+<li><a href="#procedures">Procedures</a></li>
 <li><a href="#_remote_functions">Remote functions</a></li>
 <li><a href="#_sockets">Sockets</a></li>
 <li><a href="#_agent_information">Agent information</a></li>
@@ -1378,8 +1378,10 @@ delivers them between agents.</p>
 <ul>
 <li>
 <p><em>now</em> = <strong>send</strong>(<a href="#signal_format"><em>signal</em></a>, <em>dstpid</em>, [<em>priority</em>])<br>
+<em>now</em> = <strong>send</strong>(<a href="#signal_format"><em>signal</em></a>, {<em>dstpid</em>}, [<em>priority</em>])<br>
 <span class="small">Sends <em>signal</em> to the agent identified by <em>dstpid</em>, with the specified
 <em>priority</em>, and returns the current <a href="#_system_time">time</a>.<br>
+If <em>dstpid</em> is a list of pids, the signal is sent to all the corresponding agents.<br>
 <em>priority</em> is an integer between <em>1</em> (high) and <em>N</em> (low), where <em>N</em> is the <a href="#set_priority_levels">number of priority levels</a>.<br>
 If <em>priority</em> is not specified, or if it is greater than <em>N</em>, the signal is sent without priority (which means lowest).<br>
 This function is available both to agents and to the application, that can use it to send signals to the system.</span></p>
@@ -1407,12 +1409,15 @@ sent at a point in time in the future, without the need to create timers for thi
 <ul>
 <li>
 <p><strong>send_at</strong>(<a href="#signal_format"><em>signal</em></a>, <em>dstpid</em>, <em>at</em>, [<em>maxdelay</em>])<br>
+<strong>send_at</strong>(<a href="#signal_format"><em>signal</em></a>, {<em>dstpid</em>}, <em>at</em>, [<em>maxdelay</em>])<br>
 <span class="small">A signal sent with this function  is retained in an internal queue and
 dispatched (with maximum priority) to the agent identified by <em>dstpid</em> only when the
 <a href="#_system_time">point in time</a> given by <em>at</em> arrives.
 If, for some reason, the signal can not be delivered before the point in time given by
 <em>at+maxdelay</em>, it is considered stale and silently discarded
-(<em>maxdelay</em> defaults to <em>infinity</em>, i.e. the signal is never considered stale).</span></p>
+(<em>maxdelay</em> defaults to <em>infinity</em>, i.e. the signal is never considered stale).<br>
+If <em>dstpid</em> is a list of pids, the signal is sent to all the corresponding agents.<br>
+This function is available both to agents and to the application, that can use it to send signals to the system.</span></p>
 </li>
 </ul>
 </div>
@@ -1586,7 +1591,7 @@ the <a href="#_system_time">point in time</a> at which the timer is expected to 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_procedures">Procedures</h2>
+<h2 id="procedures">Procedures</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>SDL procedures</strong> are sub-parts of state machines, that can be reused in
@@ -1788,7 +1793,7 @@ To get the pid of a sibling agent from its local name, pass <em>rpid=parent_</em
 <ul>
 <li>
 <p>{<em>pid</em>} = <strong>children_of</strong>(<em>pid</em>)<br>
-<span class="small">Returns the list of pids of the <a href="#agent_hierarchy">children</a> created by the agent identified by <em>pid</em>.</span></p>
+<span class="small">Returns the list of pids of the <a href="#agent_hierarchy">children</a> created by the agent identified by <em>pid</em> (note that this includes <a href="#procedures">procedures</a>).</span></p>
 </li>
 </ul>
 </div>
