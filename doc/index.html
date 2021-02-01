@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="generator" content="Asciidoctor 1.5.5">
 <meta name="author" content="Stefano Trettel">
 <title>MoonAgents Reference Manual</title>
 <style>
@@ -853,7 +853,7 @@ table is named <strong>moonagents</strong>, i.e. that it is loaded with:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span></span> <span class="tok-n">moonagents</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;moonagents&quot;</span><span class="tok-p">)</span></code></pre>
+<pre class="pygments highlight"><code data-lang="lua"> <span class="tok-n">moonagents</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;moonagents&quot;</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -928,7 +928,7 @@ use that the agent-scripts must not touch nor care about).</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span></span> <span class="tok-kd">local</span> <span class="tok-n">moonagents</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;moonagents&quot;</span><span class="tok-p">)</span>
+<pre class="pygments highlight"><code data-lang="lua"> <span class="tok-kd">local</span> <span class="tok-n">moonagents</span> <span class="tok-o">=</span> <span class="tok-nb">require</span><span class="tok-p">(</span><span class="tok-s2">&quot;moonagents&quot;</span><span class="tok-p">)</span>
 
  <span class="tok-c1">-- ... optional configurations and other non-MoonAgents setups...</span>
 
@@ -1040,7 +1040,7 @@ implements those Lua functions.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span></span> <span class="tok-c1">-- Example agent-script</span>
+<pre class="pygments highlight"><code data-lang="lua"> <span class="tok-c1">-- Example agent-script</span>
 
  <span class="tok-c1">-- =========== Top section: startup code ==========================</span>
 
@@ -1142,7 +1142,7 @@ in the example below then MoonAgents searches for a file named <em>"mydir/myagen
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span></span> <span class="tok-n">pid</span> <span class="tok-o">=</span> <span class="tok-n">moonagents</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-s2">&quot;myagentname&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;mydir.myagentscript&quot;</span><span class="tok-p">)</span></code></pre>
+<pre class="pygments highlight"><code data-lang="lua"> <span class="tok-n">pid</span> <span class="tok-o">=</span> <span class="tok-n">moonagents</span><span class="tok-p">.</span><span class="tok-n">create</span><span class="tok-p">(</span><span class="tok-s2">&quot;myagentname&quot;</span><span class="tok-p">,</span><span class="tok-s2">&quot;mydir.myagentscript&quot;</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1354,7 +1354,7 @@ a string and denotes the <strong>signal name</strong>. For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="lua"><span></span> <span class="tok-n">mysignal</span> <span class="tok-o">=</span> <span class="tok-p">{</span> <span class="tok-s2">&quot;MYSIGNAL&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;hello&quot;</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-n">self_</span><span class="tok-p">,</span> <span class="tok-kc">true</span> <span class="tok-p">}</span></code></pre>
+<pre class="pygments highlight"><code data-lang="lua"> <span class="tok-n">mysignal</span> <span class="tok-o">=</span> <span class="tok-p">{</span> <span class="tok-s2">&quot;MYSIGNAL&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;hello&quot;</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-n">self_</span><span class="tok-p">,</span> <span class="tok-kc">true</span> <span class="tok-p">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
